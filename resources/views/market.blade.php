@@ -9,23 +9,40 @@
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+
+
+
     <!-- CSS here -->
-    <link rel="stylesheet" href="assets/css/bootstrap.css">
-    <link rel="stylesheet" href="assets/css/meanmenu.css">
-    <link rel="stylesheet" href="assets/css/animate.css">
-    <link rel="stylesheet" href="assets/css/owl-carousel.css">
-    <link rel="stylesheet" href="assets/css/swiper-bundle.css">
-    <link rel="stylesheet" href="assets/css/backtotop.css">
-    <link rel="stylesheet" href="assets/css/magnific-popup.css">
-    <link rel="stylesheet" href="assets/css/nice-select.css">
-    <link rel="stylesheet" href="assets/flaticon/flaticon.css">
-    <link rel="stylesheet" href="assets/css/font-awesome-pro.css">
-    <link rel="stylesheet" href="assets/css/default.css">
-    <link rel="stylesheet" href="assets/css/style.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+
+    <link href="{{ asset('css/market/custom.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/market/bootstrap.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/market/meanmenu.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/market/animate.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/market/owl-carousel.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/market/backtotop.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/market/magnific-popup.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/market/nice-select.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/market/flaticon.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/market/default.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/market/style.css') }}" rel="stylesheet">
+
+    <!-- Link Swiper's CSS -->
+
+
+    <!-- JS here -->
+
+
+
     <!-- Scripts -->
+
     @routes
-    @vite('resources/js/app.js')
+    @vite(['resources/js/market.js'])
     @inertiaHead
 </head>
 

@@ -7,6 +7,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -17,11 +18,19 @@ class AuthenticatedSessionController extends Controller
      *
      * @return \Inertia\Response
      */
+    public function __construct()
+    {
+    }
+
+
     public function create()
     {
+
         return Inertia::render('Auth/Login', [
             'canResetPassword' => Route::has('password.request'),
             'status' => session('status'),
+            'google' => asset('assets/google.svg'),
+            'github' => asset('assets/github.svg')
         ]);
     }
 
@@ -37,7 +46,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        return Redirect::away(RouteServiceProvider::HOME);
     }
 
     /**
@@ -53,7 +62,7 @@ class AuthenticatedSessionController extends Controller
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
-
-        return redirect(route('login'));
+        Inertia::setRootView('market');
+        return Inertia::location(route('login'));
     }
 }

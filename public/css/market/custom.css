@@ -1,0 +1,4 @@
+.header-inner-start .header__currency .list .option:hover {
+    background-color: aqua;
+    color: black;
+}

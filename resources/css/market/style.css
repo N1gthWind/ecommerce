@@ -42,7 +42,7 @@
 }
 
 /*---------------------------------
-    typography css start 
+    typography css start
 ---------------------------------*/
 body {
   font-family: "Rubik", sans-serif;
@@ -216,7 +216,7 @@ input {
 }
 
 /*---------------------------------
-    common classes css start 
+    common classes css start
 ---------------------------------*/
 .w-img img {
   width: 100%;
@@ -321,7 +321,7 @@ input {
   }
 }
 /*----------------------------------------
-    Body Overlay 
+    Body Overlay
 -----------------------------------------*/
 .body-overlay {
   background-color: rgba(0, 0, 0, 0.5);
@@ -381,6 +381,9 @@ input {
 
 .d-blue-bg {
   background-color: #263C97;
+}
+.d-custom-dark-bg {
+    background-color: #19202b;
 }
 
 .d-dark-bg {
@@ -897,14 +900,6 @@ input {
   .section__head {
     display: block !important;
   }
-}
-.section__head::before {
-  position: absolute;
-  content: "";
-  width: 100%;
-  height: 1px;
-  background: #e5e5e5;
-  bottom: 0;
 }
 .section__title {
   margin-bottom: 6px;
@@ -1481,7 +1476,8 @@ input {
 
 .header-action {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
+  gap: 2em;
   margin-left: 60px;
 }
 @media only screen and (min-width: 1200px) and (max-width: 1399px), only screen and (min-width: 576px) and (max-width: 767px) {
@@ -3058,7 +3054,7 @@ input {
 .product__item:hover .product__add-cart {
   visibility: visible;
   opacity: 1;
-  bottom: 20px;
+  bottom: 0px;
 }
 .product__item:hover .product-action {
   right: 0;
@@ -6049,6 +6045,10 @@ input {
 
 td.product-thumbnail img {
   width: 125px;
+}
+
+td.product-thumbnail {
+    width: 125px;
 }
 
 /* 17. Checkout */

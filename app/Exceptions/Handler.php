@@ -49,7 +49,13 @@ class Handler extends ExceptionHandler
 
         $this->renderable(function (HttpException $e, $request) {
             if ($e->getStatusCode() == 419) {
-                return Inertia::render('Errors/SomethingWrong');
+                return Inertia::location(route('error.404'));
+            }
+        });
+
+        $this->renderable(function (HttpException $e, $request) {
+            if ($e->getStatusCode() == 403) {
+                return Inertia::location(route('error.404'));
             }
         });
     }
