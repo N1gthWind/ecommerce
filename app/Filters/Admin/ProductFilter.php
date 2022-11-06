@@ -2,6 +2,12 @@
 
 namespace App\Filters\Admin;
 
+use App\Filters\Admin\ProductFilters\ProductBrandFilter;
+use App\Filters\Admin\ProductFilters\ProductCategoryFilter;
+use App\Filters\Admin\ProductFilters\ProductIdFilter;
+use App\Filters\Admin\ProductFilters\ProductNameFilter;
+use App\Filters\Admin\ProductFilters\ProductStatusFilter;
+use App\Filters\Admin\ProductFilters\ProductTrendingFilter;
 use App\Filters\ProductFilters\BrandFilter;
 use App\Filters\ProductFilters\ItemFilter;
 use App\Filters\ProductFilters\PriceFilter;
@@ -13,13 +19,12 @@ use App\Filters\ProductFilters\SortByFilter;
 class ProductFilter
 {
     protected $filters = [
-        'sort_by' => SortByFilter::class,
-        'category' => ShopCategoryFilter::class,
-        'rating'  => RatingFilter::class,
-        'price' => PriceFilter::class,
-        'brand' => BrandFilter::class,
-        'search' => SearchFilter::class,
-        'items' => ItemFilter::class,
+        'id' => ProductIdFilter::class,
+        'name' => ProductNameFilter::class,
+        'status' => ProductStatusFilter::class,
+        'trending' => ProductTrendingFilter:: class,
+        'brand' => ProductBrandFilter::class,
+        'category' => ProductCategoryFilter::class,
     ];
 
     public function apply($query)
@@ -33,6 +38,8 @@ class ProductFilter
         foreach ($filters as $name => $value) {
 
             $filterInstance = new $this->filters[$name];
+
+            if($value === null) continue;
 
             $query = $filterInstance($query, $value);
         }

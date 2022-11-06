@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Exports\OrderExport;
+use App\Filters\Admin\OrderFilter;
 use App\Filters\Admin\ProductFilter;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Order\OrderFilterRequest;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -17,10 +19,11 @@ class AdminOrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(OrderFilterRequest $request,OrderFilter $filters)
     {
 
-        $orders = Order::with('products', 'user')->withCount('products')->paginate(8)->withQueryString();
+
+        $orders = Order::with('products', 'user')->withCount('products')->filter($filters)->paginate(8)->withQueryString();
         return Inertia::render('Admin/Orders', [
             'orders' => $orders,
         ]);

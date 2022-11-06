@@ -37,7 +37,7 @@ class ShopFilterRequest extends FormRequest
             'items' => ['string', Rule::in(['20', '40', '60'])],
             'sort_by' => ['string', Rule::in(['Newest', 'Oldest', 'Price: High to Low', 'Price: Low to High' ])],
             'category' => ['exists:categories,id'],
-            ''
+
         ];
     }
 }

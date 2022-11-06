@@ -16,7 +16,7 @@
             <span>{{ props.product.brand.name }}</span>
         </td>
         <td>
-            <span>{{ props.product.description }}</span>
+            <span>{{ props.product.description.substring(0,20)+"..." }}</span>
         </td>
         <td>
             <span>{{ props.product.quantity }}</span>
@@ -31,7 +31,7 @@
             <span>{{ props.product.trending }}</span>
         </td>
         <td>
-            <span>{{ props.product.meta_title }}</span>
+            <span>{{ props.product.meta_title.substring(0,20)+"..." }}</span>
         </td>
         <td>
             <Link href="javascript:void(0);" class="action-icon"> <i class="ri-eye-fill text-lg"></i></Link>

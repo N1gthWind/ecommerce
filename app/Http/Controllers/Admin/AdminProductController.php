@@ -22,6 +22,7 @@ class AdminProductController extends Controller
      */
     public function index(AdminProductFilter $filters)
     {
+        
         $products = Product::with('media', 'category', 'brand')->filter($filters)->paginate(8)->withQueryString();
         // $products = Product::filter($filters)->paginate(8)->withQueryString();
         $categories = Category::available();

@@ -6,79 +6,93 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
+                                <div class="d-flex flex-wrap gap-1 align-items-end">
+                                    <div>
+                                        <label for="status-select" class="me-2 mt-2">ID:</label>
+                                        <div class="me-3" style="max-width: 60px;">
+                                            <input v-model="form.id" type="search" class="form-control my-1 my-lg-0"
+                                                id="product_id" placeholder="ID...">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label for="status-select" class="me-2 mt-2">Product Name:</label>
+                                        <div class="me-3">
+                                            <input v-model="form.name" type="search" class="form-control my-1 my-lg-0"
+                                                id="product_name" placeholder="Search...">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label for="status-select" class="me-2 mt-2">Status</label>
+                                        <div class="me-sm-3">
+                                            <select v-model="form.status" class="form-select my-1 my-lg-0"
+                                                id="status-select">
+                                                <option :value="'All'" selected>All</option>
+                                                <option value="1">Active</option>
+                                                <option value="0">Inactive</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label for="status-select" class="me-2 mt-2">Trending</label>
+
+                                        <div class="me-sm-3">
+                                            <select v-model="form.trending" class="form-select my-1 my-lg-0"
+                                                id="status-select">
+                                                <option :value="'All'" selected>All</option>
+                                                <option value="1">Only trending</option>
+                                                <option value="0">Only not trending</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label for="status-select" class="me-2 mt-2">Category</label>
+                                        <div class="me-sm-3">
+                                            <select v-model="form.category" class="form-select my-1 my-lg-0"
+                                                id="status-select">
+                                                <option selected :value="'All'">All</option>
+
+                                                <option v-for="(category, index) in categories" :key="index"
+                                                    :value="category.id" selected>{{ category.name }}</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label for="status-select" class="me-2 mt-2">Brand</label>
+                                        <div class="me-sm-3">
+                                            <select v-model="form.brand" class="form-select my-1 my-lg-0"
+                                                id="status-select">
+                                                <option selected :value="'All'">All</option>
+
+                                                <option v-for="(brand, index) in brands" :key="index" :value="brand.id"
+                                                    selected>{{ brand.name }}</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div>
+
+                                        <button @click="filterProducts"
+                                            class="btn btn-info waves-effect waves-light"><i
+                                                class="mdi mdi-basket me-1"></i>Filter</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
                                 <div class="row mb-2 align-items-end">
                                     <div class="col-lg-8">
-                                        <div class="d-flex flex-wrap gap-1 align-items-end">
-                                            <div>
-                                                <label for="status-select" class="me-2 mt-2">Category name</label>
-                                                <div class="me-3">
-                                                    <input v-model="form.search" type="search"
-                                                        class="form-control my-1 my-lg-0" id="inputPassword2"
-                                                        placeholder="Search...">
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <label for="status-select" class="me-2 mt-2">Status</label>
-                                                <div class="me-sm-3">
-                                                    <select v-model="form.status" class="form-select my-1 my-lg-0"
-                                                        id="status-select">
-                                                        <option :value="[0,1]" selected>All</option>
-                                                        <option value="1">Active</option>
-                                                        <option value="0">Inactive</option>
 
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div>
-                                                <label for="status-select" class="me-2 mt-2">Trending</label>
-
-                                                <div class="me-sm-3">
-                                                    <select v-model="form.trending" class="form-select my-1 my-lg-0"
-                                                        id="status-select">
-                                                        <option :value="[0,1]" selected>All</option>
-                                                        <option value="1">Only trending</option>
-                                                        <option value="0">Only not trending</option>
-
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div>
-                                                <label for="status-select" class="me-2 mt-2">Category</label>
-                                                <div class="me-sm-3">
-                                                    <select v-model="form.category" class="form-select my-1 my-lg-0"
-                                                        id="status-select">
-                                                        <option selected value="">All</option>
-
-                                                        <option v-for="(category, index) in categories" :key="index"
-                                                            :value="category.id" selected>{{ category.name }}</option>
-
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div>
-                                                <label for="status-select" class="me-2 mt-2">Brand</label>
-                                                <div class="me-sm-3">
-                                                    <select v-model="form.brand" class="form-select my-1 my-lg-0"
-                                                        id="status-select">
-                                                        <option selected value="">All</option>
-
-                                                        <option v-for="(brand, index) in brands" :key="index"
-                                                            :value="brand.id" selected>{{ brand.name }}</option>
-
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div>
-
-                                                <button @click="filterCategories"
-                                                    class="btn btn-info waves-effect waves-light"><i
-                                                        class="mdi mdi-basket me-1"></i>Filter</button>
-                                            </div>
-
-                                        </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="text-lg-end">
@@ -127,7 +141,7 @@
 
 <script setup>
 import AdminLayout from '@/Layouts/AdminLayout.vue';
-import { Link } from '@inertiajs/inertia-vue3';
+import { Link, usePage } from '@inertiajs/inertia-vue3';
 import { reactive, ref } from 'vue';
 import ProductListItem from '@/Components/Admin/Products/ProductListItem.vue'
 import Pagination from '@/Components/Admin/AdminPagination.vue';
@@ -135,11 +149,12 @@ import { Inertia } from '@inertiajs/inertia';
 
 
 const form = reactive({
-    status: [0, 1],
-    trending: [0, 1],
-    search: '',
-    brand: '',
-    category: '',
+    id: usePage().props.value.ziggy?.query?.search_id ? usePage().props.value.ziggy?.query?.search_id : '',
+    name: usePage().props.value.ziggy?.query?.name ? usePage().props.value.ziggy?.query?.name : '',
+    status: usePage().props.value.ziggy?.query?.status ? usePage().props.value.ziggy?.query?.status : 'All',
+    trending: usePage().props.value.ziggy?.query?.trending ? usePage().props.value.ziggy?.query?.trending : 'All',
+    brand: usePage().props.value.ziggy?.query?.brand ? usePage().props.value.ziggy?.query?.brand : 'All',
+    category: usePage().props.value.ziggy?.query?.category ? usePage().props.value.ziggy?.query?.category : 'All',
 })
 
 
@@ -162,8 +177,16 @@ const props = defineProps({
 
 
 const filterProducts = () => {
-    Inertia.get(route('admin.products.index'), {}
-        , {
+
+    Inertia.get(route('admin.products.index'), {
+        id: form.id,
+        name: form.name,
+        status: form.status,
+        trending: form.trending,
+        brand: form.brand,
+        category: form.category,
+    },
+        {
             preserveState: true,
         });
 }

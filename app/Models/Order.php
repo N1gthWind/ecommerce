@@ -12,6 +12,7 @@ class Order extends Model
     protected $casts = [
         'created_at' => 'date:Y-m-d H:i:s',
         'updated_at' => 'date:Y-m-d H:i:s',
+        'paid_amount' => 'decimal:2',
     ];
 
     protected $fillable = [
@@ -20,6 +21,12 @@ class Order extends Model
         'paid_amount',
         'status',
     ];
+
+       // This is the scope we added
+       public function scopeFilter($query, $filters)
+       {
+           return $filters->apply($query);
+       }
 
 
     public function user()

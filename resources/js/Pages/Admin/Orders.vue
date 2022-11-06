@@ -8,25 +8,37 @@
                             <div class="card-body">
                                 <div class="row mb-2">
                                     <div class="col-lg-8">
-                                        <form class="d-flex flex-wrap align-items-center">
+                                        <div class="d-flex flex-wrap align-items-center">
+
                                             <label for="inputPassword2" class="visually-hidden">Search</label>
                                             <div class="me-3">
-                                                <input type="search" class="form-control my-1 my-lg-0"
-                                                    id="inputPassword2" placeholder="Search...">
+                                                <input type="search" v-model="form.search"
+                                                    class="form-control my-1 my-lg-0" id="search_email"
+                                                    placeholder="Search email...">
                                             </div>
                                             <label for="status-select" class="me-2">Status</label>
                                             <div class="me-sm-3">
-                                                <select class="form-select my-1 my-lg-0" id="status-select">
-                                                    <option selected="">Choose...</option>
+                                                <select v-model="form.select" class="form-select my-1 my-lg-0"
+                                                    id="status-select">
+                                                    <option value="All" selected="">All</option>
+                                                    <option value="0">Not Completed</option>
                                                     <option value="1">Paid</option>
-                                                    <option value="2">Awaiting Authorization</option>
-                                                    <option value="3">Payment failed</option>
-                                                    <option value="4">Cash On Delivery</option>
-                                                    <option value="5">Fulfilled</option>
-                                                    <option value="6">Unfulfilled</option>
                                                 </select>
                                             </div>
-                                        </form>
+                                            <label for="status-select" class="mx-2 my-4">Date from:</label>
+                                            <div class="me-sm-3">
+                                                <input type="date" v-model="form.date_from" class="form-control my-1 my-lg-0" id="datefrom">
+                                            </div>
+
+                                            <label for="status-select" class="mx-2 my-4">Date To:</label>
+                                            <div class="me-sm-3">
+                                                <input type="date" v-model="form.date_to" class="form-control my-1 my-lg-0" id="datefrom">
+                                            </div>
+                                            <button @click="filterOrders"
+                                                class="btn btn-info waves-effect waves-light"><i
+                                                    class="mdi mdi-basket me-1"></i>Filter</button>
+
+                                        </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="text-lg-end">
@@ -40,13 +52,8 @@
                                     <table class="table table-centered table-nowrap mb-0">
                                         <thead class="table-light">
                                             <tr>
-                                                <th style="width: 20px;">
-                                                    <div class="form-check">
-                                                        <input type="checkbox" class="form-check-input"
-                                                            id="customCheck1">
-                                                        <label class="form-check-label"
-                                                            for="customCheck1">&nbsp;</label>
-                                                    </div>
+                                                <th>
+
                                                 </th>
                                                 <th>Order ID</th>
                                                 <th>Products</th>
@@ -59,8 +66,8 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <OrderListItem :order="order"
-                                                v-for="(order, index) in props.orders.data" :key="index" />
+                                            <OrderListItem :order="order" v-for="(order, index) in props.orders.data"
+                                                :key="index" />
                                         </tbody>
                                     </table>
                                 </div>
@@ -76,8 +83,12 @@
 
 <script setup>
 import AdminLayout from '@/Layouts/AdminLayout.vue';
+import { reactive } from 'vue';
 import OrderListItem from "@/Components/Admin/Orders/OrderListItem.vue"
 import Pagination from "@/Components/Admin/AdminPagination.vue"
+import { Inertia } from '@inertiajs/inertia';
+import { Link, usePage } from '@inertiajs/inertia-vue3';
+
 const props = defineProps({
     logo: {
         type: String,
@@ -94,6 +105,27 @@ const props = defineProps({
         required: true,
     }
 });
+
+const form = reactive({
+    search: usePage().props.value.ziggy?.query?.search ? usePage().props.value.ziggy?.query?.search : '',
+    select: usePage().props.value.ziggy?.query?.select ? usePage().props.value.ziggy?.query?.select : 'All',
+    date_from: usePage().props.value.ziggy?.query?.date_from ? usePage().props.value.ziggy?.query?.date_from : '',
+    date_to: usePage().props.value.ziggy?.query?.date_to ? usePage().props.value.ziggy?.query?.date_to : '',
+})
+
+const filterOrders = () => {
+
+    console.log(form.search);
+    Inertia.get(route('admin.orders'), {
+        search: form.search,
+        status: form.select,
+        date_from: form.date_from,
+        date_to: form.date_to,
+    },
+        {
+            preserveState: true,
+        });
+}
 
 </script>
 

@@ -19,7 +19,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="(wishlist, index) in wishlists" :key="index">
+                                    <tr v-for="(wishlist, index) in wishListFiltered" :key="index">
                                         <td class="product-thumbnail">
 
                                             <img v-if="wishlist?.product?.media[0]?.original_url"
@@ -29,15 +29,15 @@
                                                 :alt="wishlist?.product?.meta_title" />
 
                                         </td>
-                                        <td class="product-name"><a href="shop-details.html">{{ wishlist.product.name
+                                        <td class="product-name"><a href="shop-details.html">{{ wishlist.product?.name
                                         }}</a></td>
-                                        <td class="product-price"><span class="amount">${{ wishlist.product.price
+                                        <td class="product-price"><span class="amount">${{ wishlist.product?.price
                                         }}</span></td>
                                         <td class="product-quantity">
-                                            <span>{{ wishlist.product.quantity }}</span>
+                                            <span>{{ wishlist.product?.quantity }}</span>
                                         </td>
                                         <td class="product-subtotal"><span class="amount">{{
-                                                wishlist.product.category.name
+                                                wishlist.product?.category?.name
                                         }}</span></td>
                                         <td class="product-remove">
                                             <button @click="removeFromWishlist(wishlist.id)"
@@ -69,6 +69,7 @@
 import { useForm, usePage } from "@inertiajs/inertia-vue3";
 import MarketHeaderLayout from "@/Layouts/MarketHeaderLayout.vue";
 import { Inertia } from "@inertiajs/inertia";
+import { computed } from "vue";
 
 
 const props = defineProps({
@@ -83,6 +84,14 @@ const props = defineProps({
     }
 
 })
+
+
+
+
+const wishListFiltered = computed(() => {
+
+    return props.wishlists.filter(wishlist => wishlist?.product !== null)
+});
 
 const page = usePage();
 
