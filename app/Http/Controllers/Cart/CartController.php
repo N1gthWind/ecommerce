@@ -44,7 +44,7 @@ class CartController extends Controller
 
         return Inertia::render('Cart/Index', [
             'cart_items' => $cart_items,
-            'cart_total_price' =>  $cart_total_price,
+            'cart_total_price' =>  (float)$cart_total_price,
         ]);
     }
 
@@ -66,6 +66,7 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->id);
         $product = Product::findOrFail($request->id)->load('media');
 
         if ($product->quantity <= 0) {

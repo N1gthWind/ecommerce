@@ -84,6 +84,7 @@ const addProductToWishlist = (id) => {
 }
 
 const AddToCart = (id) => {
+    cart_form.id = id;
     cart_form.post(route('cart.store'));
 }
 </script>
