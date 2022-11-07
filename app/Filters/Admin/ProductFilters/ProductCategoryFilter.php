@@ -7,10 +7,14 @@ use App\Models\Review;
 
 class ProductCategoryFilter
 {
-    function __invoke($query, $date_from)
+    function __invoke($query, $category)
     {
 
-        return $query;
+        if($category === 'All') return $query;
+
+        return $query->whereHas('category', function ($query) use($category) {
+            $query->where('id', $category);
+        });
     }
 }
 

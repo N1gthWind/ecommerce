@@ -6,6 +6,7 @@ use App\Exports\ProductExport;
 use App\Filters\Admin\ProductFilter as AdminProductFilter;
 use App\Filters\ProductFilter;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Product\AdminAddProductRequest;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
@@ -22,7 +23,7 @@ class AdminProductController extends Controller
      */
     public function index(AdminProductFilter $filters)
     {
-        
+
         $products = Product::with('media', 'category', 'brand')->filter($filters)->paginate(8)->withQueryString();
         // $products = Product::filter($filters)->paginate(8)->withQueryString();
         $categories = Category::available();
@@ -43,7 +44,14 @@ class AdminProductController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Admin/AddProduct', []);
+        $categories = Category::available();
+        $brands = Brand::available();
+
+
+        return Inertia::render('Admin/AddProduct', [
+            'categories' => $categories,
+            'brands' => $brands,
+        ]);
     }
 
     /**
@@ -52,9 +60,38 @@ class AdminProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AdminAddProductRequest $request)
     {
-        //
+
+
+        $product = new Product([
+            'name' => $request->name,
+            'slug' => $request->slug,
+            'category_id' =>  $request->category,
+            'brand_id' => $request->brand,
+            'description' => $request->description,
+            'quantity' => $request->quantity,
+            'price' => $request->price,
+            'discount_price' => $request->discount_price ?? $request->discount_price,
+            'status' => $request->status,
+            'trending' => $request->trending,
+            'meta_title' => $request->meta_title
+        ]);
+        $product->save();
+
+
+        if (request()->hasFile('images')) {
+            $images = request()->file('images');
+
+            foreach ($images as $image) {
+                $product
+                    ->addMedia($image)
+                    ->toMediaCollection('products');
+            }
+        }
+
+
+        return redirect()->back()->with('status', 'Product created successfully');
     }
 
     /**

@@ -7,10 +7,14 @@ use App\Models\Review;
 
 class ProductBrandFilter
 {
-    function __invoke($query, $date_from)
+    function __invoke($query, $brand)
     {
 
-        return $query;
+        if($brand === 'All') return $query;
+
+        return $query->whereHas('brand', function ($query) use($brand) {
+            $query->where('id', $brand);
+        });
     }
 }
 

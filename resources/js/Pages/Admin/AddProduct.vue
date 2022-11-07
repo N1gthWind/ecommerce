@@ -26,7 +26,8 @@
                                 <div class="card-body">
 
                                     <span v-if="$page.props.flash.success" class="text-success">{{
-                                    $page.props.flash.success }}</span>
+                                    $page.props.flash.success
+                                    }}</span>
 
                                     <h5 class="text-uppercase bg-light p-2 mt-0 mb-3">General</h5>
 
@@ -35,12 +36,11 @@
                                                 class="text-danger">*</span></label>
                                         <input v-model="form.name" type="text" id="product-name" class="form-control"
                                             placeholder="Enter name">
-
                                         <InputError class="mt-2 text-danger" :message="$page.props.errors.name" />
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="product-reference" class="form-label">Product slug <span
+                                        <label for="product-slug" class="form-label">Product slug <span
                                                 class="text-danger">*</span></label>
                                         <input v-model="form.slug" type="text" id="product-slug" class="form-control"
                                             placeholder="Enter slug">
@@ -50,9 +50,36 @@
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="product-summary" class="form-label">Product Description</label>
-                                        <textarea v-model="form.description" class="form-control" id="product-desc"
-                                            rows="3" placeholder="Please enter summary"></textarea>
+                                        <label for="product-price" class="form-label">Price<span
+                                                class="text-danger">*</span></label>
+                                        <input v-model="form.price" type="text" id="product-price" class="form-control"
+                                            placeholder="Enter price">
+
+                                        <InputError class="mt-2 text-danger" :message="$page.props.errors.price" />
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="product-discount_price" class="form-label">Discount Price</label>
+                                        <input v-model="form.discount_price" type="text" id="product-discount_price" class="form-control"
+                                            placeholder="Enter discount price">
+
+                                        <InputError class="mt-2 text-danger" :message="$page.props.errors.discount_price" />
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="product-quantity" class="form-label">Quantity<span
+                                                class="text-danger">*</span></label>
+                                        <input v-model="form.quantity" type="text" id="product-quantity"
+                                            class="form-control" placeholder="Enter name">
+
+                                        <InputError class="mt-2 text-danger" :message="$page.props.errors.quantity" />
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="product-description" class="form-label">Product Description</label>
+                                        <textarea v-model="form.description" class="form-control"
+                                            id="product-description" rows="3"
+                                            placeholder="Please enter summary"></textarea>
 
                                         <InputError class="mt-2 text-danger"
                                             :message="$page.props.errors.description" />
@@ -61,20 +88,41 @@
                                         <label class="mb-2">Status <span class="text-danger">*</span></label>
                                         <br>
 
-
                                         <div class="d-flex flex-wrap">
                                             <div class="form-check me-2">
                                                 <input v-model="form.status" class="form-check-input" type="radio"
-                                                    name="radioInline" :value="1" id="inlineRadio1" checked="">
-                                                <label class="form-check-label" for="inlineRadio1">Active</label>
+                                                    name="product-status1" :value="1" id="product-status1" checked="">
+                                                <label class="form-check-label" for="product-status1">Active</label>
                                             </div>
                                             <div class="form-check me-2">
                                                 <input v-model="form.status" class="form-check-input" type="radio"
-                                                    name="radioInline" :value="0" id="inlineRadio2">
-                                                <label class="form-check-label" for="inlineRadio2">Inactive</label>
+                                                    name="product-status2" :value="0" id="product-status1">
+                                                <label class="form-check-label" for="product-status1">Inactive</label>
                                             </div>
                                         </div>
-                                        <InputError class="mt-2 text-danger" :message="$page.props.errors.status" />
+                                        <div class="mb-3">
+
+                                            <label class="my-2">Trending <span class="text-danger">*</span></label>
+                                            <br>
+
+                                            <div class="d-flex flex-wrap">
+                                                <div class="form-check me-2">
+                                                    <input v-model="form.trending" class="form-check-input" type="radio"
+                                                        name="radioInline" :value="1" id="product_trending1" checked="">
+                                                    <label class="form-check-label" for="product_trending1">Yes</label>
+                                                </div>
+                                                <div class="form-check me-2">
+                                                    <input v-model="form.trending" class="form-check-input" type="radio"
+                                                        name="radioInline" :value="0" id="product_trending1">
+                                                    <label class="form-check-label" for="product_trending2">No</label>
+
+                                                    <InputError class="mt-2 text-danger"
+                                                        :message="$page.props.errors.trending" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+
                                     </div>
                                 </div>
                             </div> <!-- end card -->
@@ -86,21 +134,23 @@
                                     <div class="mb-3">
                                         <label for="example-fileinput" class="form-label">Default file
                                             input</label>
-                                        <input type="file" id="example-fileinput" class="form-control">
+                                        <input @change="onFileChange" type="file" id="example-fileinput"
+                                            class="form-control" multiple>
                                     </div>
 
-                                    <div
-                                        class="upload-product-media d-flex justify-content-between align-items-center mt-25">
-                                        <div class="upload-media-area d-flex" style="width: 100%;">
-                                            <img src="https://demo.jsnorm.com/html/strikingdash/strikingdash/ltr/img/food-restaurant-media.png" alt="img">
-                                            <div
-                                                class="upload-media-area__title  d-flex flex-wrap align-items-center ml-10" style="justify-content: space-between;width: 100%;">
+                                    <div v-for="(image, index) in images" :key="index"
+                                        class="upload-product-media mt-3">
+                                        <div class="upload-media-area d-flex">
+                                            <img :src="image?.image" alt="img" width="200">
+                                            <div class="upload-media-area__title  d-flex flex-wrap align-items-center ml-10"
+                                                style="justify-content: space-between;width: 100%;">
                                                 <div class="m-4">
-                                                    <p>Product_image.jpg</p>
-                                                    <span>68.8 KB</span>
+                                                    <p>{{ image?.name }}</p>
+                                                    <span>{{ image?.size.toFixed(2) }} MB</span>
                                                 </div>
                                                 <div class="upload-media-area__btn" style="">
-                                                    <button type="button" style="background: transparent;"
+                                                    <button @click="removeImage(index)" type="button"
+                                                        style="background: transparent;"
                                                         class="transparent rounded-circle wh-30 border-0 color-danger">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                             viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -117,6 +167,9 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div v-for="(image, index) in $page?.props?.errors?.images" :key="index">
+                                        <InputError class="mt-2 text-danger" :message="$page.props.errors.images" />
+                                    </div>
                                 </div>
                             </div>
                         </div> <!-- end col -->
@@ -124,35 +177,46 @@
                         <div class="col-lg-6">
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="text-uppercase mt-0 mb-3 bg-light p-2">Meta Data</h5>
+                                    <h5 class="text-uppercase mt-0 mb-3 bg-light p-2">Relations</h5>
 
                                     <div class="mb-3">
-                                        <label for="product-meta-title" class="form-label">Meta title</label>
+                                        <label for="product-meta-title" class="form-label">Meta title</label><span
+                                                class="text-danger">*</span>
                                         <input v-model="form.meta_title" type="text" class="form-control"
                                             id="product-meta-title" placeholder="Enter title">
                                         <InputError class="mt-2 text-danger" :message="$page.props.errors.meta_title" />
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="product-meta-keywords" class="form-label">Meta Keywords</label>
-                                        <input v-model="form.meta_keywords" type="text" class="form-control"
-                                            id="product-meta-keywords" placeholder="Enter keywords">
+                                        <label for="product-category" class="form-label">Category<span
+                                                class="text-danger">*</span></label>
+                                        <select v-model="form.category" class="form-select my-1 my-lg-0"
+                                            id="product-category">
+                                            <option v-for="(category, index) in categories" :key="index"
+                                                :value="category.id">{{ category.name }}</option>
 
-                                        <InputError class="mt-2 text-danger"
-                                            :message="$page.props.errors.meta_keywords" />
+                                        </select>
+
+                                        <InputError class="mt-2 text-danger" :message="$page.props.errors.category" />
                                     </div>
 
-                                    <div>
-                                        <label for="product-meta-description" class="form-label">Meta Description
-                                        </label>
-                                        <textarea v-model="form.meta_desc" class="form-control" rows="5"
-                                            id="product-meta-description"
-                                            placeholder="Please enter description"></textarea>
 
-                                        <InputError class="mt-2 text-danger"
-                                            :message="$page.props.errors.meta_keywords" />
+                                    <div class="mb-3">
+                                        <label for="product-brand" class="form-label">Brand<span
+                                                class="text-danger">*</span></label>
+                                        <select v-model="form.brand" class="form-select my-1 my-lg-0"
+                                            id="product-brand">
+                                            <option v-for="(brand, index) in brands" :key="index" :value="brand.id">{{
+                                            brand.name
+                                            }}</option>
 
+                                        </select>
+
+                                        <InputError class="mt-2 text-danger" :message="$page.props.errors.category" />
                                     </div>
+
+
+
                                 </div>
                             </div> <!-- end card -->
 
@@ -163,7 +227,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="text-center mb-3">
-                                <button @click="submitproduct" type="button"
+                                <button @click="createProduct" type="button"
                                     class="btn w-sm btn-success waves-effect waves-light">Create
                                     product</button>
                             </div>
@@ -200,24 +264,7 @@
 
             </div> <!-- content -->
 
-            <!-- Footer Start -->
-            <footer class="footer">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-6">
-                            {{ new Date().getFullYear() }}© UBold theme by <a href="">Coderthemes</a>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="text-md-end footer-links d-none d-sm-block">
-                                <a href="javascript:void(0);">About Us</a>
-                                <a href="javascript:void(0);">Help</a>
-                                <a href="javascript:void(0);">Contact Us</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </footer>
-            <!-- end Footer -->
+
 
         </div>
     </AdminLayout>
@@ -229,22 +276,76 @@ import { Inertia } from '@inertiajs/inertia';
 import { onMounted, onUpdated, reactive } from 'vue'
 import InputError from "@/Components/InputError.vue";
 import { useToast } from "vue-toastification";
-import { usePage } from '@inertiajs/inertia-vue3'
-const form = reactive({
+import { usePage, useForm } from '@inertiajs/inertia-vue3'
+import { ref } from 'vue';
+const images = ref([]);
+const toast = useToast();
+
+const form = useForm({
     name: '',
     slug: '',
+    price: null,
+    discount_price: null,
+    quantity: null,
     description: '',
     status: 1,
+    trending: 1,
     meta_title: '',
-    meta_desc: '',
-    meta_keywords: '',
+    images: [],
+    category: props.categories[0]?.id,
+    brand: props.brands[0]?.id,
+})
+
+const props = defineProps({
+    categories: Object,
+    brands: Object,
+})
 
 
-});
-const toast = useToast();
 
 const submitproduct = () => {
     Inertia.post(route('admin.products.store'), form);
+}
+
+const removeImage = (index) => {
+    images.value.splice(index, 1);
+}
+
+const onFileChange = (e) => {
+    let is_valid = true;
+    var files = e.target.files || e.dataTransfer.files
+    if (!files.length) {
+        return
+    }
+    Array.from(files).forEach(file => {
+        if (file.type.match(['image.*'])) {
+            const size = file.size > 0 ? ((file.size / 1024) / 1024) : 0;
+            const name = file.name;
+
+            var reader = new FileReader()
+            reader.onload = (e) => {
+                const image = e.target.result;
+
+                images.value.push({
+                    image: image,
+                    size: size,
+                    name: name,
+                });
+            }
+            reader.readAsDataURL(file)
+        }
+        else {
+            is_valid = false;
+        }
+    });
+
+    if (is_valid) {
+        form.images = files;
+    }
+}
+
+const createProduct = () => {
+    form.post(route('admin.products.store'));
 }
 
 </script>
