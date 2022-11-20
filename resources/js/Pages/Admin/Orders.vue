@@ -40,7 +40,7 @@
 
                                         </div>
                                     </div>
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-4 d-flex justify-content-end align-items-center">
                                         <div class="text-lg-end">
                                             <a :href="route('admin.orders.export')"
                                                 class="btn btn-light waves-effect">Export</a>

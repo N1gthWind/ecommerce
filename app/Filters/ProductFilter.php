@@ -15,7 +15,7 @@ class ProductFilter
     protected $filters = [
         'sort_by' => SortByFilter::class,
         'category' => ShopCategoryFilter::class,
-        'rating'  => RatingFilter::class,
+        'rating' => RatingFilter::class,
         'price' => PriceFilter::class,
         'brand' => BrandFilter::class,
         'search' => SearchFilter::class,
@@ -29,7 +29,7 @@ class ProductFilter
         });
 
         $filters = $this->receivedFilters();
-        isset($filters['sort_by']) ?? $filters['sort_by'] = 'most_popular';
+        isset($filters['sort_by']) ?? $filters['sort_by'] = 'Newest';
         $filters['items'] ?? $filters['items'] = '20';
 
         foreach ($filters as $name => $value) {
@@ -39,11 +39,8 @@ class ProductFilter
             $query = $filterInstance($query, $value);
         }
 
-
-
         return $query;
     }
-
 
     public function receivedFilters()
     {

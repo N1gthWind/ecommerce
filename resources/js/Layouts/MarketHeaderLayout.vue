@@ -193,11 +193,12 @@ const set_category = (category) => {
     shop_by_departmant.value = !shop_by_departmant.value
 
     Inertia.get(route('market.shop'), {
-        items: pagination_number.value,
-        sort_by: sorting_type.value,
+        items: usePage().props.value.ziggy?.query?.items ?? 20,
+        sort_by: usePage().props.value.ziggy?.query?.sort_by ?? 'Newest',
         category: categories_selected.value,
-        price: [price_range.value.min, price_range.value.max],
-        rating: review_rating.value,
+        price: [usePage().props.value.ziggy?.query?.price?.[0] ?? 1, usePage().props.value.ziggy?.query?.price?.[1] ?? 999],
+        rating: usePage().props.value.ziggy?.query?.rating ?? [],
+        search: search_input.value,
     },
         {
             preserveState: true,
@@ -208,11 +209,11 @@ const set_category = (category) => {
 const search_product = () => {
 
     Inertia.get(route('market.shop'), {
-        items: pagination_number.value,
-        sort_by: sorting_type.value,
+        items: usePage().props.value.ziggy?.query?.items ?? 20,
+        sort_by: usePage().props.value.ziggy?.query?.sort_by ?? 'Newest',
         category: categories_selected.value,
-        price: [price_range.value.min, price_range.value.max],
-        rating: review_rating.value,
+        price: [usePage().props.value.ziggy?.query?.price?.[0] ?? 1, usePage().props.value.ziggy?.query?.price?.[1] ?? 999],
+        rating: usePage().props.value.ziggy?.query?.rating ?? [],
         search: search_input.value,
     },
         {

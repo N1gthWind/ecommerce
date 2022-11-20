@@ -59,10 +59,10 @@
                         <h6>{{ product.name }}</h6>
                         <div class="pd-rating mb-10">
                             <ul class="rating">
-                                <li v-for="(star, index) in Math.floor(avg_review_rating)" :key="index">
+                                <li v-for="(star, index) in Math.round(avg_review_rating)" :key="index">
                                     <a><i class="fa-solid fa-star text-yellow-500"></i></a>
                                 </li>
-                                <li v-for="(star, index) in (5 - Math.floor(avg_review_rating))" :key="index"><a><i
+                                <li v-for="(star, index) in (5 - Math.round(avg_review_rating))" :key="index"><a><i
                                             class="fa-solid fa-star text-gray-500"></i></a></li>
                             </ul>
                             <span>({{ product.reviews_count }} review)</span>
@@ -149,10 +149,10 @@
                                 <div class="review-rate">
                                     <h5>{{ avg_review_rating.toFixed(2) }}</h5>
                                     <div class="review-star text-2xl">
-                                        <span v-for="(star, index) in Math.floor(avg_review_rating)" :key="index">
+                                        <span v-for="(star, index) in Math.round(avg_review_rating)" :key="index">
                                             <i class="fas fa-star checked"></i>
                                         </span>
-                                        <span v-for="(star, index) in (5 - Math.floor(avg_review_rating))" :key="index">
+                                        <span v-for="(star, index) in (5 - Math.round(avg_review_rating))" :key="index">
                                             <i class="fas fa-star"></i>
                                         </span>
                                     </div>

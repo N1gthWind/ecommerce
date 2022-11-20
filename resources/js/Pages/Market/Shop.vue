@@ -29,29 +29,6 @@
                     <div class="col-xl-3 col-lg-4">
                         <ToastNotification />
 
-                        <!-- <div class="product-widget mb-30">
-                            <h5 class="pt-title">Product Categories</h5>
-                            <div class="widget-category-list mt-2">
-                                <form action="#">
-
-                                    <div v-for="(category, index) in categories" :key="index"
-                                        class="relative flex items-start mt-2">
-                                        <div class="flex items-center h-5">
-                                            <input :id="category.name + category.id"
-                                                aria-describedby="categories-description" name="categories"
-                                                type="checkbox" :value="category.id" @change="set_category_selected"
-                                                v-model="categories_selected"
-                                                class="focus:ring-yellow-500 h-4 w-4 text-yellow-600 border-gray-300 rounded">
-                                        </div>
-                                        <div class="ml-3 text-sm">
-                                            <label :for="category.name + category.id"
-                                                class="font-medium text-gray-700 hover:text-yellow-600">{{ category.name
-                                                }}<span>(60)</span></label>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div> -->
                         <div class="product-widget mb-30">
                             <h5 class="pt-title">Filter By Price</h5>
                             <div class="w-full">
@@ -85,77 +62,6 @@
 
                         </div>
                         <div class="product-widget mb-30">
-                            <h5 class="pt-title">Choose Color</h5>
-                            <div class="product__color mt-8">
-                                <div class="mt-4 flex items-center space-x-3">
-                                    <!--
-      Active and Checked: "ring ring-offset-1"
-      Not Active and Checked: "ring-2"
-    -->
-                                    <label
-                                        class="-m-0.5 relative p-0.5 flex items-center justify-center cursor-pointer focus:outline-none ring-pink-500">
-                                        <input type="radio" name="color-choice" value="Pink" class="sr-only"
-                                            aria-labelledby="color-choice-0-label">
-                                        <p id="color-choice-0-label" class="sr-only">Pink</p>
-                                        <span aria-hidden="true"
-                                            class="h-8 w-8 bg-pink-500 border border-black border-opacity-10"></span>
-                                    </label>
-
-                                    <!--
-      Active and Checked: "ring ring-offset-1"
-      Not Active and Checked: "ring-2"
-    -->
-                                    <label
-                                        class="-m-0.5 relative p-0.5  flex items-center justify-center cursor-pointer focus:outline-none ring-purple-500">
-                                        <input type="radio" name="color-choice" value="Purple" class="sr-only"
-                                            aria-labelledby="color-choice-1-label">
-                                        <p id="color-choice-1-label" class="sr-only">Purple</p>
-                                        <span aria-hidden="true"
-                                            class="h-8 w-8 bg-purple-500 border border-black border-opacity-10 "></span>
-                                    </label>
-
-                                    <!--
-      Active and Checked: "ring ring-offset-1"
-      Not Active and Checked: "ring-2"
-    -->
-                                    <label
-                                        class="-m-0.5 relative p-0.5  flex items-center justify-center cursor-pointer focus:outline-none ring-blue-500">
-                                        <input type="radio" name="color-choice" value="Blue" class="sr-only"
-                                            aria-labelledby="color-choice-2-label">
-                                        <p id="color-choice-2-label" class="sr-only">Blue</p>
-                                        <span aria-hidden="true"
-                                            class="h-8 w-8 bg-blue-500 border border-black border-opacity-10 "></span>
-                                    </label>
-
-                                    <!--
-      Active and Checked: "ring ring-offset-1"
-      Not Active and Checked: "ring-2"
-    -->
-                                    <label
-                                        class="-m-0.5 relative p-0.5  flex items-center justify-center cursor-pointer focus:outline-none ring-green-500">
-                                        <input type="radio" name="color-choice" value="Green" class="sr-only"
-                                            aria-labelledby="color-choice-3-label">
-                                        <p id="color-choice-3-label" class="sr-only">Green</p>
-                                        <span aria-hidden="true"
-                                            class="h-8 w-8 bg-green-500 border border-black border-opacity-10 "></span>
-                                    </label>
-
-                                    <!--
-      Active and Checked: "ring ring-offset-1"
-      Not Active and Checked: "ring-2"
-    -->
-                                    <label
-                                        class="-m-0.5 relative p-0.5  flex items-center justify-center cursor-pointer focus:outline-none ring-yellow-500">
-                                        <input type="radio" name="color-choice" value="Yellow" class="sr-only"
-                                            aria-labelledby="color-choice-4-label">
-                                        <p id="color-choice-4-label" class="sr-only">Yellow</p>
-                                        <span aria-hidden="true"
-                                            class="h-8 w-8 bg-yellow-500 border border-black border-opacity-10 "></span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-widget mb-30">
                             <h5 class="pt-title">Choose Rating</h5>
                             <div class="widget-category-list mt-2">
                                 <div class="relative flex items-center mt-2"
@@ -171,39 +77,6 @@
                                     Filter rating </button>
                             </div>
                         </div>
-                        <!-- TODO BRAND FILTER -->
-
-                        <!-- <div class="product-widget mb-30">
-                            <h5 class="pt-title">Choose Brand</h5>
-                            <div class="widget-category-list mt-2">
-                                <form action="#">
-                                    <div class="single-widget-category">
-                                        <input type="checkbox" id="brand-item-1" name="brand-item">
-                                        <label for="brand-item-1">CarRentals <span>(12)</span></label>
-                                    </div>
-                                    <div class="single-widget-category">
-                                        <input type="checkbox" id="brand-item-2" name="brand-item">
-                                        <label for="brand-item-2">CarVoodoo <span>(60)</span></label>
-                                    </div>
-                                    <div class="single-widget-category">
-                                        <input type="checkbox" id="brand-item-3" name="brand-item">
-                                        <label for="brand-item-3">Creative <span>(41)</span></label>
-                                    </div>
-                                    <div class="single-widget-category">
-                                        <input type="checkbox" id="brand-item-4" name="brand-item">
-                                        <label for="brand-item-4">Impact <span>(28)</span></label>
-                                    </div>
-                                    <div class="single-widget-category">
-                                        <input type="checkbox" id="brand-item-5" name="brand-item">
-                                        <label for="brand-item-5">IQVia <span>(21)</span></label>
-                                    </div>
-                                    <div class="single-widget-category">
-                                        <input type="checkbox" id="brand-item-7" name="brand-item">
-                                        <label for="brand-item-7">LeadsGreen <span>(62)</span></label>
-                                    </div>
-                                </form>
-                            </div>
-                        </div> -->
                         <div class="product-widget mb-30">
                             <h5 class="pt-title">Special Offers</h5>
                             <div class="product__sm mt-8">
@@ -304,6 +177,11 @@
                                                             class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                                                             <div class="py-1">
                                                                 <MenuItem v-slot="{ active }">
+                                                                <span
+                                                                    :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">Sort
+                                                                    by...</span>
+                                                                </MenuItem>
+                                                                <MenuItem v-slot="{ active }">
                                                                 <a @click="set_sorting_type('Newest')"
                                                                     :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">Newest</a>
                                                                 </MenuItem>
@@ -316,6 +194,11 @@
                                                                 <a @click="set_sorting_type('Price: Low to High')"
                                                                     :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">Price:
                                                                     Low to High</a>
+                                                                </MenuItem>
+                                                                <MenuItem v-slot="{ active }">
+                                                                <a @click="set_sorting_type('Discount %')"
+                                                                    :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">
+                                                                    Discount %</a>
                                                                 </MenuItem>
                                                                 <MenuItem v-slot="{ active }">
                                                                 <a @click="set_sorting_type('Oldest')"
@@ -335,10 +218,18 @@
                             <div class="tab-pane fade"
                                 :class="[{ active: layout_product_list }, { show: layout_product_list }]" id="FourCol"
                                 role="tabpanel" aria-labelledby="FourCol-tab">
-                                <div class="tp-wrapper">
-                                    <div class="row ">
+                                <div>
+                                    <div v-if="products.data.length > 0" class="row">
                                         <ProductItem v-for="(product, index) in products.data" :key="index"
                                             :product="product" />
+                                    </div>
+                                    <div v-else>
+                                        <div class="col-12 d-flex justify-center my-4">
+                                            <div class="alert alert-danger" role="alert">
+                                                <h4 class="alert-heading">No Product Found!</h4>
+                                                <p>Sorry, we couldn't find any product for you.</p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -441,13 +332,14 @@ const set_layout_value_to_false = () => {
 }
 
 const set_price_range_selected = () => {
-    console.log(price_range.value.min, price_range.value.max);
+
     Inertia.get(route('market.shop'), {
         items: pagination_number.value,
         sort_by: sorting_type.value,
-        category: categories_selected.value,
+        category: usePage().props.value.ziggy?.query?.category ?? [],
         price: [price_range.value.min, price_range.value.max],
         rating: review_rating.value,
+        search: usePage().props.value.ziggy?.query?.search ?? [],
     },
         {
             preserveState: true,
@@ -458,9 +350,10 @@ const set_category_selected = (id) => {
     Inertia.get(route('market.shop'), {
         items: pagination_number.value,
         sort_by: sorting_type.value,
-        category: categories_selected.value,
+        category: usePage().props.value.ziggy?.query?.category ?? [],
         price: [price_range.value.min, price_range.value.max],
         rating: review_rating.value,
+        search: usePage().props.value.ziggy?.query?.search ?? [],
     },
         {
             preserveState: true,
@@ -473,9 +366,10 @@ const set_pagination_number = (number) => {
     Inertia.get(route('market.shop'), {
         items: pagination_number.value,
         sort_by: sorting_type.value,
-        category: categories_selected.value,
+        category: usePage().props.value.ziggy?.query?.category ?? [],
         price: [price_range.value.min, price_range.value.max],
         rating: review_rating.value,
+        search: usePage().props.value.ziggy?.query?.search ?? [],
     },
         {
             preserveState: true,
@@ -491,9 +385,10 @@ const set_sorting_type = (type) => {
     Inertia.get(route('market.shop'), {
         items: pagination_number.value,
         sort_by: sorting_type.value,
-        category: categories_selected.value,
+        category: usePage().props.value.ziggy?.query?.category ?? [],
         price: [price_range.value.min, price_range.value.max],
         rating: review_rating.value,
+        search: usePage().props.value.ziggy?.query?.search ?? [],
     },
         {
             preserveState: true,
@@ -504,9 +399,10 @@ const set_rating_selected = () => {
     Inertia.get(route('market.shop'), {
         items: pagination_number.value,
         sort_by: sorting_type.value,
-        category: categories_selected.value,
+        category: usePage().props.value.ziggy?.query?.category ?? [],
         price: [price_range.value.min, price_range.value.max],
         rating: review_rating.value,
+        search: usePage().props.value.ziggy?.query?.search ?? [],
     },
         {
             preserveState: true,

@@ -63,7 +63,7 @@ class AdminProductController extends Controller
     public function store(AdminAddProductRequest $request)
     {
 
-
+        dd($request->all());
         $product = new Product([
             'name' => $request->name,
             'slug' => $request->slug,
@@ -102,7 +102,13 @@ class AdminProductController extends Controller
      */
     public function show($id)
     {
-        //
+        //Get both avaialable and non-avaialble categories
+
+
+
+        return Inertia::render('Admin/Show/ShowProduct', [
+            'product' => Product::with('media', 'category', 'brand')->findOrFail($id),
+        ]);
     }
 
     /**
@@ -113,7 +119,12 @@ class AdminProductController extends Controller
      */
     public function edit($id)
     {
-        //
+
+       return Inertia::render('Admin/Edit/EditProduct', [
+            'product' => Product::with('media', 'category', 'brand')->findOrFail($id),
+            'categories' => Category::available(),
+            'brands' => Brand::available(),
+        ]);
     }
 
     /**

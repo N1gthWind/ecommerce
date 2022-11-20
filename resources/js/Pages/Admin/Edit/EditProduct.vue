@@ -13,7 +13,7 @@
                                 <div class="page-title-right">
 
                                 </div>
-                                <h4 class="page-title mt-4">Add Product</h4>
+                                <h4 class="page-title mt-4">Edit Product</h4>
                             </div>
                         </div>
                     </div>
@@ -92,12 +92,12 @@
                                         <div class="d-flex flex-wrap">
                                             <div class="form-check me-2">
                                                 <input v-model="form.status" class="form-check-input" type="radio"
-                                                    name="product-status1" :value="1" id="product-status1" checked="">
+                                                    name="product-status1" :value="1" id="product-status1">
                                                 <label class="form-check-label" for="product-status1">Active</label>
                                             </div>
                                             <div class="form-check me-2">
                                                 <input v-model="form.status" class="form-check-input" type="radio"
-                                                    name="product-status2" :value="0" id="product-status1">
+                                                    name="product-status2" :value="0" id="product-status2">
                                                 <label class="form-check-label" for="product-status1">Inactive</label>
                                             </div>
                                         </div>
@@ -114,7 +114,7 @@
                                                 </div>
                                                 <div class="form-check me-2">
                                                     <input v-model="form.trending" class="form-check-input" type="radio"
-                                                        name="radioInline" :value="0" id="product_trending1">
+                                                        name="radioInline" :value="0" id="product_trending2">
                                                     <label class="form-check-label" for="product_trending2">No</label>
 
                                                     <InputError class="mt-2 text-danger"
@@ -149,7 +149,22 @@
                                                     <p>{{ image?.name }}</p>
                                                     <span>{{ image?.size.toFixed(2) }} MB</span>
                                                 </div>
-
+                                                <div class="upload-media-area__btn" style="">
+                                                    <button @click="removeImage(index)" type="button"
+                                                        style="background: transparent;"
+                                                        class="transparent rounded-circle wh-30 border-0 color-danger">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round" class="feather feather-trash-2">
+                                                            <polyline points="3 6 5 6 21 6"></polyline>
+                                                            <path
+                                                                d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                                                            </path>
+                                                            <line x1="10" y1="11" x2="10" y2="17"></line>
+                                                            <line x1="14" y1="11" x2="14" y2="17"></line>
+                                                        </svg></button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -206,6 +221,55 @@
                                 </div>
                             </div> <!-- end card -->
 
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="text-uppercase mt-0 mb-3 bg-light p-2">Images</h5>
+
+                                    <div class="mb-3">
+                                        <div class="row">
+                                            <div v-for="(media, index) in product?.media" :key="index"
+                                                class="col-xl-6 col-sm-6">
+                                                <div class="card border border-primary">
+                                                    <div class="card-body">
+                                                        <div class="text-center">
+                                                            <img v-if="media?.original_url" :src="media?.original_url"
+                                                                class="avatar-xl mt-2 mb-4" :alt="media?.name">
+                                                            <img v-else :src="$page.props.assets.no_image_product"
+                                                                :alt="media?.name" class="mt-2 mb-4 w-full h-full" />
+                                                            <div class="flex-1">
+                                                                <h5 class="text-truncate"><a href="#"
+                                                                        class="text-dark">{{ media.name }}</a>
+                                                                </h5>
+                                                                <p class="text-muted">
+                                                                    <i class="mdi mdi-account me-1"></i> {{
+                                                                            media.mime_type
+                                                                    }}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+
+                                                        <hr class="my-4">
+                                                        <div class="row text-center">
+                                                            <div class="col-6">
+                                                                <p class="text-muted mb-2">ID:</p>
+                                                                <h5>{{ media.id }}</h5>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <p class="text-muted mb-2">Size:</p>
+                                                                <h5>{{ media.size > 0 ? ((media.size / 1024) /
+                                                                        1024).toFixed(2) + " MB" : ''
+                                                                }}
+                                                                </h5>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div> <!-- end col-->
                     </div>
                     <!-- end row -->
@@ -244,14 +308,9 @@
                             </div>
                         </div>
                     </div>
-
-
                 </div> <!-- container -->
 
             </div> <!-- content -->
-
-
-
         </div>
     </AdminLayout>
 </template>
@@ -262,83 +321,44 @@ import { Inertia } from '@inertiajs/inertia';
 import { onMounted, onUpdated, reactive } from 'vue'
 import InputError from "@/Components/InputError.vue";
 import { useToast } from "vue-toastification";
-import { usePage, useForm } from '@inertiajs/inertia-vue3'
+import { usePage, useForm } from '@inertiajs/inertia-vue3';
 import { ref } from 'vue';
 const images = ref([]);
 const toast = useToast();
 
-const form = useForm({
-    name: '',
-    slug: '',
-    price: null,
-    discount_price: null,
-    quantity: null,
-    description: '',
-    status: 1,
-    trending: 1,
-    meta_title: '',
-    images: [],
-    category: props.categories[0]?.id,
-    brand: props.brands[0]?.id,
-})
 
 const props = defineProps({
-    categories: Object,
-    brands: Object,
-})
-
-
-
-const submitproduct = () => {
-    Inertia.post(route('admin.products.store'), form);
-}
-
-const removeImage = (index) => {
-    images.value.splice(index, 1);
-}
-
-const onFileChange = (e) => {
-    images.value = [];
-    form.images = [];
-    let is_valid = true;
-    var files = e.target.files || e.dataTransfer.files
-    if (!files.length) {
-        return
+    product: {
+        type: Object,
+        required: true
+    },
+    categories: {
+        type: Object,
+        required: true,
+    },
+    brands: {
+        type: Object,
+        required: true,
     }
-    Array.from(files).forEach(file => {
+});
 
-        if (file.type.match(['image.*'])) {
-            const size = file.size > 0 ? ((file.size / 1024) / 1024) : 0;
-            const name = file.name;
+const form = useForm({
+    name: props.product.name,
+    description: props.product.description,
+    slug: props.product.slug,
+    price: props.product.price,
+    discount: props.product.discount,
+    quantity: props.product.quantity,
+    meta_title: props.product.meta_title,
+    category: props.product?.category_id,
+    brand: props.product?.brand_id,
+    images: props.product?.media,
+    status: props.product.status,
+});
 
-            var reader = new FileReader()
-            reader.onload = (e) => {
-                const image = e.target.result;
-
-                images.value.push({
-                    image: image,
-                    size: size,
-                    name: name,
-                });
-            }
-            reader.readAsDataURL(file)
-        }
-        else {
-            is_valid = false;
-        }
-    });
-
-    if (is_valid) {
-        form.images = files;
-    }
+const submitProduct = () => {
+    Inertia.put(route('admin.products.update', { product: props.product.id }), form);
 }
 
-const createProduct = () => {
-    form.post(route('admin.products.store'));
-}
 
 </script>
-
-<style lang="scss">
-
-</style>

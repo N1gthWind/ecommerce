@@ -16,8 +16,12 @@ class ReviewFactory extends Factory
      */
     public function definition()
     {
+
         return [
-            //
+            'user_id' => null,
+            'product_id' => null,
+            'text' => $this->faker->text,
+            'stars' => $this->faker->randomElement([1, 2, 3, 4, 5]),
         ];
     }
 }

@@ -24,7 +24,8 @@
                         </span>
                         </Link>
                     </div>
-                    <button @click="toggle_menu = !toggle_menu" type="button" class="btn button-custom btn-sm px-3 font-size-24 header-item waves-effect"
+                    <button @click="toggle_menu = !toggle_menu" type="button"
+                        class="btn button-custom btn-sm px-3 font-size-24 header-item waves-effect"
                         id="vertical-menu-btn">
                         <i class="ri-menu-2-line align-middle"></i>
                     </button>
@@ -189,8 +190,7 @@
                                             <li class="mm-active">
                                                 <Link :href="route('admin.home')" class="waves-effect active"
                                                     aria-expanded="false">
-                                                <i class="ri-dashboard-line"></i><span
-                                                    class="badge rounded-pill bg-success float-end">3</span>
+                                                <i class="ri-dashboard-line"></i>
                                                 <span>Dashboard</span>
                                                 </Link>
                                             </li>
@@ -216,110 +216,6 @@
                                                 </Link>
                                             </li>
 
-                                            <li>
-                                                <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                                    <i class="ri-store-2-line"></i>
-                                                    <span>Ecommerce</span>
-                                                </a>
-                                                <ul class="sub-menu mm-collapse" aria-expanded="false">
-                                                    <li><a href="ecommerce-products.html">Products</a></li>
-                                                    <li><a href="ecommerce-product-detail.html">Product Detail</a></li>
-                                                    <li><a href="ecommerce-orders.html">Orders</a></li>
-                                                    <li><a href="ecommerce-customers.html">Customers</a></li>
-                                                    <li><a href="ecommerce-cart.html">Cart</a></li>
-                                                    <li><a href="ecommerce-checkout.html">Checkout</a></li>
-                                                    <li><a href="ecommerce-shops.html">Shops</a></li>
-                                                    <li><a href="ecommerce-add-product.html">Add Product</a></li>
-                                                </ul>
-                                            </li>
-
-                                            <li>
-                                                <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                                    <i class="ri-mail-send-line"></i>
-                                                    <span>Email</span>
-                                                </a>
-                                                <ul class="sub-menu mm-collapse" aria-expanded="false">
-                                                    <li><a href="email-inbox.html">Inbox</a></li>
-                                                    <li><a href="email-read.html">Read Email</a></li>
-                                                </ul>
-                                            </li>
-
-                                            <li>
-                                                <a href="apps-kanban-board.html" class="waves-effect">
-                                                    <i class="ri-artboard-2-line"></i>
-                                                    <span>Kanban Board</span>
-                                                </a>
-                                            </li>
-
-                                            <li>
-                                                <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                                    <i class="ri-layout-3-line"></i>
-                                                    <span>Layouts</span>
-                                                </a>
-                                                <ul class="sub-menu mm-collapse" aria-expanded="true">
-                                                    <li>
-                                                        <a href="javascript: void(0);" class="has-arrow">Vertical</a>
-                                                        <ul class="sub-menu mm-collapse" aria-expanded="true">
-                                                            <li><a target="_self"
-                                                                    href="layouts-light-sidebar.html">Light Sidebar</a>
-                                                            </li>
-                                                            <li><a target="_self"
-                                                                    href="layouts-compact-sidebar.html">Compact
-                                                                    Sidebar</a>
-                                                            </li>
-                                                            <li><a target="_self" href="layouts-icon-sidebar.html">Icon
-                                                                    Sidebar</a></li>
-                                                            <li><a target="_self" href="layouts-boxed.html">Boxed
-                                                                    Width</a></li>
-                                                            <li><a target="_self"
-                                                                    href="layouts-preloader.html">Preloader</a></li>
-                                                            <li><a target="_self"
-                                                                    href="layouts-colored-sidebar.html">Colored
-                                                                    Sidebar</a>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-
-                                                    <li>
-                                                        <a href="javascript: void(0);" class="has-arrow">Horizontal</a>
-                                                        <ul class="sub-menu mm-collapse" aria-expanded="true">
-                                                            <li><a target="_self"
-                                                                    href="layouts-horizontal.html">Horizontal</a></li>
-                                                            <li><a target="_self"
-                                                                    href="layouts-hori-topbar-light.html">Topbar
-                                                                    light</a>
-                                                            </li>
-                                                            <li><a target="_self"
-                                                                    href="layouts-hori-boxed-width.html">Boxed width</a>
-                                                            </li>
-                                                            <li><a target="_self"
-                                                                    href="layouts-hori-preloader.html">Preloader</a>
-                                                            </li>
-                                                            <li><a target="_self"
-                                                                    href="layouts-hori-colored-header.html">Colored
-                                                                    Header</a>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>
-                                            </li>
-
-                                            <li class="menu-title">Pages</li>
-
-                                            <li>
-                                                <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                                    <i class="ri-account-circle-line"></i>
-                                                    <span>Authentication</span>
-                                                </a>
-                                                <ul class="sub-menu mm-collapse" aria-expanded="false">
-                                                    <li><a target="_self" href="auth-login.html">Login</a></li>
-                                                    <li><a target="_self" href="auth-register.html">Register</a></li>
-                                                    <li><a target="_self" href="auth-recoverpw.html">Recover
-                                                            Password</a></li>
-                                                    <li><a target="_self" href="auth-lock-screen.html">Lock Screen</a>
-                                                    </li>
-                                                </ul>
-                                            </li>
 
                                             <li>
                                                 <Link :href="route('logout')" method="post" class="waves-effect">

@@ -1,41 +1,42 @@
 <template>
     <tr>
         <td>
-            <span>{{ props.product.id }}</span>
+            <span>{{ props.product?.id }}</span>
         </td>
         <td>
-            <span>{{ props.product.category.name }}</span>
+            <span>{{ props.product?.category.name }}</span>
         </td>
         <td>
-            <span>{{ props.product.name }}</span>
+            <span>{{ props.product?.name }}</span>
         </td>
         <td>
-            <span>{{ props.product.slug }}</span>
+            <span>{{ props.product?.slug }}</span>
         </td>
         <td>
-            <span>{{ props.product.brand.name }}</span>
+            <span>{{ props.product?.brand?.name }}</span>
         </td>
         <td>
-            <span>{{ props.product.description.substring(0,20)+"..." }}</span>
+            <span>{{ props.product?.description.substring(0, 20) + "..." }}</span>
         </td>
         <td>
-            <span>{{ props.product.quantity }}</span>
+            <span>{{ props.product?.quantity }}</span>
         </td>
         <td>
-            <span>{{ props.product.status }}</span>
+            <span>{{ props.product?.status }}</span>
         </td>
         <td>
-            <span>{{ props.product.trending }}</span>
+            <span>{{ Object.keys(props.product?.media).length }}</span>
         </td>
         <td>
-            <span>{{ props.product.trending }}</span>
+            <span>{{ props.product?.trending }}</span>
         </td>
         <td>
-            <span>{{ props.product.meta_title.substring(0,20)+"..." }}</span>
+            <span>{{ props.product?.meta_title.substring(0, 20) + "..." }}</span>
         </td>
         <td>
-            <Link href="javascript:void(0);" class="action-icon"> <i class="ri-eye-fill text-lg"></i></Link>
-            <Link href="javascript:void(0);" class="action-icon"> <i class="ri-edit-box-line text-lg"></i></Link>
+            <Link :href="route('admin.products.show', { product: props.product?.id })" class="action-icon"> <i
+                class="ri-eye-fill text-lg"></i></Link>
+            <Link :href="route('admin.products.edit', { product: props.product?.id })" class="action-icon"> <i class="ri-edit-box-line text-lg"></i></Link>
             <Link @click="submitDeleteCategory(props.id)" class="action-icon"> <i
                 class="ri-delete-bin-2-fill text-lg"></i></Link>
         </td>

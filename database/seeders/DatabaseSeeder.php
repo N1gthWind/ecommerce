@@ -5,8 +5,6 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Brand;
-use App\Models\Category;
-use App\Models\Product;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -24,16 +22,12 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com',
             'password' => bcrypt('asder123'),
-            'role' => 'admin'
+            'role' => 'admin',
         ]);
 
         // $user->wishlist()->create([
 
         // ]);
-
-
-
-
 
         Brand::factory(10)->create();
 
@@ -42,6 +36,7 @@ class DatabaseSeeder extends Seeder
             ProductSeeder::class,
             WishListSeeder::class,
             OrderSeeder::class,
+            ReviewSeeder::class,
         ]);
     }
 }

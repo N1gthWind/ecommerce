@@ -14,14 +14,12 @@ class Product extends Model implements HasMedia
 
     use HasFactory, InteractsWithMedia, Searchable;
 
-
     public static function boot()
     {
         parent::boot();
         static::created(function ($item) {
         });
     }
-
 
 
     protected $fillable = [
@@ -40,8 +38,8 @@ class Product extends Model implements HasMedia
     ];
 
     protected $casts = [
-        'created_at'  => 'date:Y-m-d H:i:s',
-        'updated_at'  => 'date:Y-m-d H:i:s',
+        'created_at' => 'date:Y-m-d H:i:s',
+        'updated_at' => 'date:Y-m-d H:i:s',
         'discount_price' => 'decimal:2',
     ];
 
@@ -55,8 +53,6 @@ class Product extends Model implements HasMedia
             'created_at' => Carbon::parse($this->created_at)->format('Y-m-d H:i:s'),
         ];
     }
-
-
 
     // This is the scope we added
     public function scopeFilter($query, $filters)
@@ -73,20 +69,18 @@ class Product extends Model implements HasMedia
     public function scopeSpecialOffer($query)
     {
         return $query->where('trending', '=', 1)
-            ->whereNot('discount_price', '=', NULL);
+            ->whereNot('discount_price', '=', null);
     }
-
 
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 
-    function available_category()
+    public function available_category()
     {
         return $this->category()->where('status', 1);
     }
-
 
     public function brand()
     {
@@ -101,6 +95,6 @@ class Product extends Model implements HasMedia
     public function orders()
     {
         return $this->belongsToMany(Order::class, 'product_order')
-        ->withPivot('price', 'quantity');
+            ->withPivot('price', 'quantity');
     }
 }

@@ -8,7 +8,6 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Review;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
@@ -17,26 +16,21 @@ class ClientController extends Controller
     public function home()
     {
 
-
         $most_bought_product_ids = $this->getMostBoughtProducts(5);
         $most_bought_products = Product::whereIn('id', array_keys($most_bought_product_ids->toArray()))->with('media')->withCount('reviews')->get();
         foreach ($most_bought_products as $product) {
             $product->avg_reviews = $this->calculateAverageReview($product->reviews);
         }
 
-
-
         $latest_products = Product::latest()->take(5)->with('media')->withCount('reviews')->get();
         foreach ($latest_products as $product) {
             $product->avg_reviews = $this->calculateAverageReview($product->reviews);
         }
 
-
-
         return Inertia::render('Market/Index', [
             'logo' => asset('assets/logo.png'),
             'latest_products' => $latest_products,
-            'most_bought_products' => $most_bought_products
+            'most_bought_products' => $most_bought_products,
 
         ]);
     }
@@ -50,16 +44,14 @@ class ClientController extends Controller
 
 
         foreach ($products as $product) {
-            $product->avg_reviews = $this->calculateAverageReview($product->reviews);
+            $product->avg_reviews = round($this->calculateAverageReview($product->reviews));
         }
-
 
         $categories = Category::available();
 
         $brands = Brand::all();
         $all_products = Product::all();
         $each_review_avg_count = $this->getCountOfEachProductAverageRating($all_products);
-
 
         $product_count = $products->total();
 
@@ -70,7 +62,7 @@ class ClientController extends Controller
             'brands' => $brands,
             'special_offers' => $special_offers,
             'each_review_avg_count' => $each_review_avg_count,
-            'product_count' =>  $product_count,
+            'product_count' => $product_count,
         ]);
     }
 
@@ -81,12 +73,10 @@ class ClientController extends Controller
 
         $avg_reviews = $this->calculateAverageReview($reviews);
 
-
-
         return Inertia::render('Market/ProductDetails', [
             'product' => $product->load(['media', 'reviews.user', 'category'])->loadCount('reviews'),
             'avg_review_rating' => $avg_reviews,
-            'can_review' =>  Auth::user()?->can('create', [Review::class, $product]),
+            'can_review' => Auth::user()?->can('create', [Review::class, $product]),
 
         ]);
     }
@@ -101,11 +91,10 @@ class ClientController extends Controller
         $sum = 0;
 
         foreach ($reviews as $key => $review) {
-            $sum += (int)$review->stars;
+            $sum += (int) $review->stars;
         }
 
-
-        return  $reviews->count() === 0 ? 0 : $sum / $reviews->count();
+        return $reviews->count() === 0 ? 0 : $sum / $reviews->count();
     }
 
     public function getCountOfEachProductAverageRating($products)
@@ -125,7 +114,7 @@ class ClientController extends Controller
 
         foreach ($products as $product) {
 
-            $avg_review = (int)round($product->avg_reviews);
+            $avg_review = (int) round($product->avg_reviews);
 
             if ($avg_review > 5 || $avg_review <= 0) {
                 continue;
