@@ -29,9 +29,8 @@ class ProductFilter
         });
 
         $filters = $this->receivedFilters();
-        isset($filters['sort_by']) ?? $filters['sort_by'] = 'Newest';
+        isset($filters['sort_by']) ?: $filters['sort_by'] = 'Newest';
         $filters['items'] ?? $filters['items'] = '20';
-
         foreach ($filters as $name => $value) {
 
             $filterInstance = new $this->filters[$name];
