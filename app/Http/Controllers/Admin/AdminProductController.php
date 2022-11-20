@@ -129,10 +129,7 @@ class AdminProductController extends Controller
     public function update(AdminEditProductRequest $request, $id)
     {
 
-        dd($request->all());
         $product = Product::findOrFail($id);
-
-        // Update the product
 
         $product->update([
             'name' => $request->name,

@@ -140,6 +140,10 @@
                                             class="form-control" multiple>
                                     </div>
 
+                                    <progress v-if="form.progress" :value="form.progress.percentage" max="100">
+                                        {{ form.progress.percentage }}%
+                                    </progress>
+
                                     <div v-for="(image, index) in images" :key="index"
                                         class="upload-product-media mt-3">
                                         <div class="upload-media-area d-flex">
@@ -150,22 +154,7 @@
                                                     <p>{{ image?.name }}</p>
                                                     <span>{{ image?.size.toFixed(2) }} MB</span>
                                                 </div>
-                                                <div class="upload-media-area__btn" style="">
-                                                    <button @click="removeImage(index)" type="button"
-                                                        style="background: transparent;"
-                                                        class="transparent rounded-circle wh-30 border-0 color-danger">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                            stroke-width="2" stroke-linecap="round"
-                                                            stroke-linejoin="round" class="feather feather-trash-2">
-                                                            <polyline points="3 6 5 6 21 6"></polyline>
-                                                            <path
-                                                                d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
-                                                            </path>
-                                                            <line x1="10" y1="11" x2="10" y2="17"></line>
-                                                            <line x1="14" y1="11" x2="14" y2="17"></line>
-                                                        </svg></button>
-                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -325,6 +314,7 @@ import { usePage, useForm } from '@inertiajs/inertia-vue3';
 import ToastNotificationStatus from "@/Components/Admin/ToastNotificationStatus.vue";
 import { ref } from 'vue';
 const images = ref([]);
+
 const toast = useToast();
 
 
@@ -354,15 +344,13 @@ const form = useForm({
     category: props.product?.category_id,
     brand: props.product?.brand_id,
     status: props.product.status,
-   
+    trending: props.product.trending,
+    images: [],
 });
 
-const submitProduct = () => {
-    Inertia.put(route('admin.products.update', { product: props.product.id }), form);
-}
 
 const editProduct = () => {
-    Inertia.put(route('admin.products.update', { product: props.product.id }), form);
+    Inertia.post(route('admin.products.update', { product: props.product.id, _method: 'put' }), form);
 }
 
 const onFileChange = (e) => {

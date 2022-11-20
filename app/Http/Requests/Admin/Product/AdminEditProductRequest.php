@@ -25,19 +25,19 @@ class AdminEditProductRequest extends FormRequest
     public function rules()
     {
         return [
-            "name" => "required|string|min:4",
-            "slug" => "required|string|string",
-            "price" => ['required', 'regex:/^[0-9]+\.[0-9]{2}$/'],
-            "discount_price" => ['regex:/^[0-9]+\.[0-9]{2}$/', 'lt:price', 'nullable'],
-            "quantity" => 'required|integer',
-            'description' => 'required|string|max:200',
-            'status' => ['required', Rule::in([1, 0])],
-            'trending' => ['required', Rule::in([1, 0])],
-            'meta_title' => 'required|string',
-            'category' => ['required', 'integer', 'exists:categories,id'],
-            'brand' => ['required', 'integer', 'exists:brands,id'],
-            'images' => ['array', 'nullable'],
-            'images.*' => ['image', 'mimes:png,jpg', 'max:4096', 'nullable'],
+            // "name" => "required|string|min:4",
+            // "slug" => "required|string|string",
+            // "price" => ['required', 'regex:/^[0-9]+\.[0-9]{2}$/'],
+            // "discount_price" => ['regex:/^[0-9]+\.[0-9]{2}$/', 'lt:price', 'nullable'],
+            // "quantity" => 'required|integer',
+            // 'description' => 'required|string|max:200',
+            // 'status' => ['required', Rule::in([1, 0])],
+            // 'trending' => ['required', Rule::in([1, 0])],
+            // 'meta_title' => 'required|string',
+            // 'category' => ['required', 'integer', 'exists:categories,id'],
+            // 'brand' => ['required', 'integer', 'exists:brands,id'],
+            // 'images' => ['array', 'nullable'],
+            // 'images.*' => ['image', 'mimes:png,jpg', 'max:4096', 'nullable'],
         ];
     }
 
