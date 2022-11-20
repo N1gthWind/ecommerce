@@ -187,30 +187,30 @@
                                         <ul class="metismenu list-unstyled mm-show" id="side-menu">
                                             <li class="menu-title">Menu</li>
 
-                                            <li class="mm-active">
-                                                <Link :href="route('admin.home')" class="waves-effect active"
+                                            <li :class="{ 'mm-active' : route().current('admin.home') }">
+                                                <Link :href="route('admin.home')" class="waves-effect" :class="{'active': route().current('admin.home') }"
                                                     aria-expanded="false">
                                                 <i class="ri-dashboard-line"></i>
                                                 <span>Dashboard</span>
                                                 </Link>
                                             </li>
 
-                                            <li>
-                                                <Link :href="route('admin.categories.index')" class="waves-effect">
+                                            <li :class="{ 'mm-active' : route().current('admin.categories.index') }">
+                                                <Link :href="route('admin.categories.index')" class="waves-effect" :class="{ 'active' : route().current('admin.categories.index') }">
                                                 <i class="ri-list-unordered"></i>
                                                 <span>Categories</span>
                                                 </Link>
                                             </li>
 
-                                            <li>
-                                                <Link :href="route('admin.orders')" class="waves-effect">
+                                            <li :class="{ 'mm-active' : route().current('admin.orders') }">
+                                                <Link :href="route('admin.orders')" class="waves-effect" :class="{ 'active' : route().current('admin.orders') }">
                                                 <i class="ri-shopping-bag-fill"></i>
                                                 <span>Orders</span>
                                                 </Link>
                                             </li>
 
-                                            <li>
-                                                <Link :href="route('admin.products.index')" class="waves-effect">
+                                            <li :class="{ 'mm-active' : route().current('admin.products.index') }">
+                                                <Link :href="route('admin.products.index')" class="waves-effect" :class="{ 'active' : route().current('admin.products.index') }">
                                                 <i class="ri-store-fill"></i>
                                                 <span>Products</span>
                                                 </Link>
@@ -222,18 +222,6 @@
                                                 <i class="ri-shut-down-line"></i>
                                                 <span>Log out</span>
                                                 </Link>
-                                                <ul class="sub-menu mm-collapse" aria-expanded="false">
-                                                    <li><a href="pages-starter.html">Starter Page</a></li>
-                                                    <li><a target="_self" href="pages-maintenance.html">Maintenance</a>
-                                                    </li>
-                                                    <li><a target="_self" href="pages-comingsoon.html">Coming Soon</a>
-                                                    </li>
-                                                    <li><a href="pages-timeline.html">Timeline</a></li>
-                                                    <li><a href="pages-faqs.html">FAQs</a></li>
-                                                    <li><a href="pages-pricing.html">Pricing</a></li>
-                                                    <li><a target="_self" href="pages-404.html">Error 404</a></li>
-                                                    <li><a target="_self" href="pages-500.html">Error 500</a></li>
-                                                </ul>
                                             </li>
                                         </ul>
                                     </div>

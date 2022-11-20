@@ -49,7 +49,7 @@
                                 <p>Description : {{ product.description }}</p>
                                 <p>Quantity : {{ product.quantity }}</p>
                                 <p>Price : ${{ product.price }}</p>
-                                <p>Discount_price : ${{ product.discount_price ? product.discount_price : '' }}</p>
+                                <p v-if="product.discount_price">Discount_price : ${{ product.discount_price ? product.discount_price : '' }}</p>
                                 <p>Status : {{ product.status }}</p>
                                 <p>Trending : {{ product.trending }}</p>
                                 <p>Meta_title  : {{ product.meta_title }}</p>

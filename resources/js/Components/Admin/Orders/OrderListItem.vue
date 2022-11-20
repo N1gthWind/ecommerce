@@ -26,7 +26,7 @@
         </td>
         <td>
             <Link :href="route('admin.orders.show', { order: order.id })" class="action-icon"> <i class="ri-eye-fill text-lg"></i></Link>
-            <Link href="''" class="action-icon"> <i class="ri-edit-box-line text-lg"></i></Link>
+
         </td>
     </tr>
 </template>
