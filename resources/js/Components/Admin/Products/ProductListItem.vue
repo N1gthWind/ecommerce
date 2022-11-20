@@ -37,7 +37,7 @@
             <Link :href="route('admin.products.show', { product: props.product?.id })" class="action-icon"> <i
                 class="ri-eye-fill text-lg"></i></Link>
             <Link :href="route('admin.products.edit', { product: props.product?.id })" class="action-icon"> <i class="ri-edit-box-line text-lg"></i></Link>
-            <Link @click="submitDeleteCategory(props.id)" class="action-icon"> <i
+            <Link @click="submitDeleteProduct(props.product?.id)" class="action-icon"> <i
                 class="ri-delete-bin-2-fill text-lg"></i></Link>
         </td>
     </tr>
@@ -54,8 +54,8 @@ const props = defineProps({
     product: Object,
 })
 
-const submitDeleteCategory = (id) => {
-    Inertia.delete(route('admin.categories.destroy', { id: id }));
+const submitDeleteProduct = (id) => {
+    Inertia.delete(route('admin.products.destroy', { product: id }))
 }
 </script>
 

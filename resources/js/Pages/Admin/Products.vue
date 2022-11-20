@@ -1,4 +1,5 @@
 <template>
+    <ToastNotificationStatus />
     <AdminLayout :logo="$page.props.assets.logo" :avatar="$page.props.assets.avatar">
         <div class="page-content">
             <div class="container-fluid">
@@ -146,6 +147,7 @@ import { reactive, ref } from 'vue';
 import ProductListItem from '@/Components/Admin/Products/ProductListItem.vue'
 import Pagination from '@/Components/Admin/AdminPagination.vue';
 import { Inertia } from '@inertiajs/inertia';
+import ToastNotificationStatus from '@/Components/Admin/ToastNotificationStatus.vue';
 
 
 const form = reactive({

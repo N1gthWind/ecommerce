@@ -1,4 +1,5 @@
 <template>
+    <ToastNotificationStatus />
     <AdminLayout :logo="$page.props.assets.logo" :avatar="$page.props.assets.avatar">
         <div class="content-page">
             <div class="content">
@@ -277,9 +278,8 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="text-center mb-3">
-                                <button @click="createProduct" type="button"
-                                    class="btn w-sm btn-success waves-effect waves-light">Create
-                                    product</button>
+                                <button @click="editProduct" type="button"
+                                    class="btn w-sm btn-success waves-effect waves-light">Edit Product</button>
                             </div>
                         </div> <!-- end col -->
                     </div>
@@ -322,6 +322,7 @@ import { onMounted, onUpdated, reactive } from 'vue'
 import InputError from "@/Components/InputError.vue";
 import { useToast } from "vue-toastification";
 import { usePage, useForm } from '@inertiajs/inertia-vue3';
+import ToastNotificationStatus from "@/Components/Admin/ToastNotificationStatus.vue";
 import { ref } from 'vue';
 const images = ref([]);
 const toast = useToast();
@@ -352,12 +353,52 @@ const form = useForm({
     meta_title: props.product.meta_title,
     category: props.product?.category_id,
     brand: props.product?.brand_id,
-    images: props.product?.media,
     status: props.product.status,
+   
 });
 
 const submitProduct = () => {
     Inertia.put(route('admin.products.update', { product: props.product.id }), form);
+}
+
+const editProduct = () => {
+    Inertia.put(route('admin.products.update', { product: props.product.id }), form);
+}
+
+const onFileChange = (e) => {
+    images.value = [];
+    form.images = [];
+    let is_valid = true;
+    var files = e.target.files || e.dataTransfer.files
+    if (!files.length) {
+        return
+    }
+    Array.from(files).forEach(file => {
+
+        if (file.type.match(['image.*'])) {
+            const size = file.size > 0 ? ((file.size / 1024) / 1024) : 0;
+            const name = file.name;
+
+            var reader = new FileReader()
+            reader.onload = (e) => {
+                const image = e.target.result;
+
+                images.value.push({
+                    image: image,
+                    size: size,
+                    name: name,
+                });
+            }
+            reader.readAsDataURL(file)
+        }
+        else {
+            is_valid = false;
+        }
+    });
+
+    if (is_valid) {
+        form.images = files;
+    }
 }
 
 

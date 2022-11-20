@@ -1,4 +1,5 @@
 <template>
+    <ToastNotificationStatus />
     <AdminLayout :logo="$page.props.assets.logo" :avatar="$page.props.assets.avatar">
         <div class="content-page">
             <div class="content">
@@ -264,6 +265,7 @@ import InputError from "@/Components/InputError.vue";
 import { useToast } from "vue-toastification";
 import { usePage, useForm } from '@inertiajs/inertia-vue3'
 import { ref } from 'vue';
+import ToastNotificationStatus from "@/Components/Admin/ToastNotificationStatus.vue";
 const images = ref([]);
 const toast = useToast();
 

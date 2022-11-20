@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Exports\ProductExport;
 use App\Filters\Admin\ProductFilter as AdminProductFilter;
-use App\Filters\ProductFilter;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Product\AdminAddProductRequest;
+use App\Http\Requests\Admin\Product\AdminEditProductRequest;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
@@ -28,7 +28,6 @@ class AdminProductController extends Controller
         // $products = Product::filter($filters)->paginate(8)->withQueryString();
         $categories = Category::available();
 
-
         $brands = Brand::all();
         return Inertia::render('Admin/Products', [
             'products' => $products,
@@ -47,7 +46,6 @@ class AdminProductController extends Controller
         $categories = Category::available();
         $brands = Brand::available();
 
-
         return Inertia::render('Admin/AddProduct', [
             'categories' => $categories,
             'brands' => $brands,
@@ -62,12 +60,10 @@ class AdminProductController extends Controller
      */
     public function store(AdminAddProductRequest $request)
     {
-
-        dd($request->all());
         $product = new Product([
             'name' => $request->name,
             'slug' => $request->slug,
-            'category_id' =>  $request->category,
+            'category_id' => $request->category,
             'brand_id' => $request->brand,
             'description' => $request->description,
             'quantity' => $request->quantity,
@@ -75,10 +71,9 @@ class AdminProductController extends Controller
             'discount_price' => $request->discount_price ?? $request->discount_price,
             'status' => $request->status,
             'trending' => $request->trending,
-            'meta_title' => $request->meta_title
+            'meta_title' => $request->meta_title,
         ]);
         $product->save();
-
 
         if (request()->hasFile('images')) {
             $images = request()->file('images');
@@ -89,7 +84,6 @@ class AdminProductController extends Controller
                     ->toMediaCollection('products');
             }
         }
-
 
         return redirect()->back()->with('status', 'Product created successfully');
     }
@@ -103,8 +97,6 @@ class AdminProductController extends Controller
     public function show($id)
     {
         //Get both avaialable and non-avaialble categories
-
-
 
         return Inertia::render('Admin/Show/ShowProduct', [
             'product' => Product::with('media', 'category', 'brand')->findOrFail($id),
@@ -120,7 +112,7 @@ class AdminProductController extends Controller
     public function edit($id)
     {
 
-       return Inertia::render('Admin/Edit/EditProduct', [
+        return Inertia::render('Admin/Edit/EditProduct', [
             'product' => Product::with('media', 'category', 'brand')->findOrFail($id),
             'categories' => Category::available(),
             'brands' => Brand::available(),
@@ -134,9 +126,46 @@ class AdminProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(AdminEditProductRequest $request, $id)
     {
-        //
+
+        dd($request->all());
+        $product = Product::findOrFail($id);
+
+        // Update the product
+
+        $product->update([
+            'name' => $request->name,
+            'slug' => $request->slug,
+            'category_id' => $request->category,
+            'brand_id' => $request->brand,
+            'description' => $request->description,
+            'quantity' => $request->quantity,
+            'price' => $request->price,
+            'discount_price' => $request->discount_price ?? $request->discount_price,
+            'status' => $request->status,
+            'trending' => $request->trending,
+            'meta_title' => $request->meta_title,
+        ]);
+        // Update the product images
+
+        //Check if the request has images
+        if (request()->hasFile('images')) {
+            // Remove current image
+
+            $product->clearMediaCollection('products');
+
+            // Add new images
+
+            $images = request()->file('images');
+
+            foreach ($images as $image) {
+                $product
+                    ->addMedia($image)
+                    ->toMediaCollection('products');
+            }
+        }
+        return redirect()->back()->with('status', 'Product updated successfully');
     }
 
     /**
@@ -147,7 +176,10 @@ class AdminProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = Product::findOrFail($id);
+        $product->delete();
+
+        return redirect()->back()->with('status', 'Product deleted successfully');
     }
 
     public function export()
