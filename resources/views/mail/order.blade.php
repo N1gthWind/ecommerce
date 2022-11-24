@@ -434,7 +434,7 @@
                             style="font-family: Helvetica, Arial, sans-serif;margin-top: 0px;margin-bottom: 0px;font-size: 14px;line-height: 21px;color: #424651;text-align: left;padding-left: 8px;padding-right: 8px;">
                             <p class="o_mb-xs" style="margin-top: 0px;margin-bottom: 8px;"><strong>Payment
                                     Method</strong></p>
-                            <p style="margin-top: 0px;margin-bottom: 0px;">Credit Card</p>
+                            <p style="margin-top: 0px;margin-bottom: 0px;">PayPal</p>
                         </div>
                     </div>
                     <!--[if mso]></td><td width="300" align="left" valign="top" style="padding: 0px 8px;"><![endif]-->

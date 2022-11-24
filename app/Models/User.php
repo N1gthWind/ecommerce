@@ -36,19 +36,16 @@ class User extends Authenticatable implements MustVerifyEmail
         'remember_token',
     ];
 
-
-
     /**
      * The attributes that should be cast.
      *
      * @var array<string, string>
      */
     protected $casts = [
-        'created_at'  => 'date:Y-m-d H:i:s',
-        'updated_at'  => 'date:Y-m-d H:i:s',
-        'email_verified_at' =>  'date:Y-m-d H:i:s',
+        'created_at' => 'date:Y-m-d H:i:s',
+        'updated_at' => 'date:Y-m-d H:i:s',
+        'email_verified_at' => 'date:Y-m-d H:i:s',
     ];
-
 
     public function is_admin()
     {
@@ -68,5 +65,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function address()
+    {
+        return $this->hasOne(Address::class);
     }
 }
