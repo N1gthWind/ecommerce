@@ -13,6 +13,9 @@ const form = useForm({
     name: "",
     email: "",
     password: "",
+    city: "",
+    address: "",
+    zip: "",
     password_confirmation: "",
     terms: false,
 });
@@ -44,6 +47,10 @@ const submit = () => {
                                     <InputError class="mt-2 text-danger" :message="form.errors.password" />
                                     <InputError class="mt-2 text-danger" :message="form.errors.password_confirmation" />
                                     <InputError class="mt-2 text-danger" :message="form.errors.name" />
+                                    <InputError class="mt-2 text-danger" :message="form.errors.city" />
+                                    <InputError class="mt-2 text-danger" :message="form.errors.address" />
+                                    <InputError class="mt-2 text-danger" :message="form.errors.zip" />
+
 
 
                                     <div class="relative w-full mb-3"><label
@@ -59,6 +66,36 @@ const submit = () => {
                                     <PasswordInput v-model:password="form.password" />
                                     <PasswordInput v-model:password="form.password_confirmation"
                                         :placeholder="'Confirm Password'" />
+
+                                    <div class="relative w-full mb-3"><label
+                                            class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                            for="grid-password">City</label>
+                                        <input v-model="form.city"
+                                            class="appearance-none border-2 rounded w-full py-3 px-3 leading-tight border-gray-300 bg-gray-100 focus:outline-none focus:border-indigo-700 focus:bg-white text-gray-700 pr-16"
+                                            id="city" placeholder="City" type="text"
+                                            style="transition: all 0.15s ease 0s;">
+                                    </div>
+
+                                    <div class="relative w-full mb-3"><label
+                                            class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                            for="grid-password">Address</label>
+                                        <input v-model="form.address"
+                                            class="appearance-none border-2 rounded w-full py-3 px-3 leading-tight border-gray-300 bg-gray-100 focus:outline-none focus:border-indigo-700 focus:bg-white text-gray-700 pr-16"
+                                            id="address" placeholder="Address" type="text"
+                                            style="transition: all 0.15s ease 0s;">
+
+                                    </div>
+
+                                    <div class="relative w-full mb-3"><label
+                                            class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                                            for="grid-password">Zip</label>
+                                        <input v-model="form.zip"
+                                            class="appearance-none border-2 rounded w-full py-3 px-3 leading-tight border-gray-300 bg-gray-100 focus:outline-none focus:border-indigo-700 focus:bg-white text-gray-700 pr-16"
+                                            id="zip" placeholder="Zip" type="text"
+                                            style="transition: all 0.15s ease 0s;">
+
+                                    </div>
+
                                     <div class="text-center mt-6">
                                         <button
                                             class="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"

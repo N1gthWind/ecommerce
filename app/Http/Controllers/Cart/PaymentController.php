@@ -17,9 +17,6 @@ use Srmklive\PayPal\Services\PayPal as PayPalClient;
 class PaymentController extends Controller
 {
 
-
-
-
     public function __construct()
     {
         $this->middleware(['auth', 'verified']);
@@ -29,9 +26,6 @@ class PaymentController extends Controller
     {
         $userId = auth()->user()->id;
 
-
-
-
         $cart_total_price = Cart::session($userId)->getTotal();
 
         if ($cart_total_price > 0) {
@@ -40,25 +34,24 @@ class PaymentController extends Controller
 
             $provider->setAccessToken($token);
 
-
             $order = $provider->createOrder([
                 "intent" => "CAPTURE",
                 "purchase_units" => [
                     [
                         "amount" => [
                             "currency_code" => "USD",
-                            "value" => $cart_total_price
-                        ]
-                    ]
+                            "value" => $cart_total_price,
+                        ],
+                    ],
                 ],
                 "application_context" => [
                     "payment_method" => [
                         "payer_selected" => "PAYPAL",
-                        "payee_preferred" => "IMMEDIATE_PAYMENT_REQUIRED"
+                        "payee_preferred" => "IMMEDIATE_PAYMENT_REQUIRED",
                     ],
                     "return_url" => route('payment.success'),
                     "cancel_url" => route('cart.index'),
-                ]
+                ],
             ]);
 
             return Inertia::location($order['links'][1]['href']);
@@ -75,7 +68,6 @@ class PaymentController extends Controller
         $provider->getAccessToken();
 
         $response = $provider->showOrderDetails($request['token']);
-
 
         if (isset($response['status']) && $response['status'] === 'CREATED') {
             dump('Canceled');
@@ -98,11 +90,10 @@ class PaymentController extends Controller
         if (isset($response['status']) && $response['status'] === 'COMPLETED') {
             $userId = auth()->user()->id;
 
-
             $order = Order::create([
                 'user_id' => auth()->user()->id,
                 'payment_id' => $response['id'],
-                'paid_amount' => (float)$response['purchase_units'][0]['payments']['captures'][0]['amount']['value'],
+                'paid_amount' => (float) $response['purchase_units'][0]['payments']['captures'][0]['amount']['value'],
                 'status' => $response['status'],
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -111,21 +102,29 @@ class PaymentController extends Controller
             $cart_items = Cart::session($userId)->getContent();
 
             foreach ($cart_items as $cart_item) {
-                $product_id =  Product::find($cart_item->id);
+                $product_id = Product::find($cart_item->id);
                 $order->products()->attach($product_id, [
                     'quantity' => $cart_item->quantity,
                     'price' => $cart_item->price,
                 ]);
             }
 
-
+            $total_price = Cart::session($userId)->getSubTotal();
+            $total_price_without_fee = Cart::session($userId)->getSubTotalWithoutConditions();
 
             Cart::session($userId)->clear();
             $user = User::findOrFail($userId);
 
-            // Mail::to($user->email)->send(new OrderMail($cart_items, $order->load('products'), $user, $prices));
+            //Get total price
+            $total_price = $order->paid_amount;
+            //Total price without fee
 
+            $prices = (object) [
+                'total_price' => $total_price,
+                'total_price_without_fee' => $total_price_without_fee,
+            ];
 
+            Mail::to($user->email)->send(new OrderMail($cart_items, $order->load('products'), $user, $prices));
 
             //Subtract the quantity after the payment!
             foreach ($cart_items as $cart_item) {
@@ -137,7 +136,7 @@ class PaymentController extends Controller
                 ]);
             }
 
-            return redirect()->route('cart.index')->with('success', 'Order made successfully! \nYou will receive the email notification soon!');
+            return redirect()->away(route('cart.index'))->with('success', 'Payment completed successfully!');
         } else {
             return Inertia::render('Error/SomethingWrong');
         }

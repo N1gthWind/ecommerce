@@ -3,7 +3,6 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
@@ -16,7 +15,7 @@ class OrderMail extends Mailable
      *
      * @return void
      */
-    public function __construct($cart_item,$order,$user,$prices)
+    public function __construct($cart_item, $order, $user, $prices)
     {
         $this->cart_item = $cart_item;
         $this->order = $order;
@@ -33,10 +32,10 @@ class OrderMail extends Mailable
     {
         return $this->from('ecommerce@test.com')
             ->view('mail.order')->with([
-                'order' => $this->order,
-                'user' => $this->user,
-                'cart_item' => $this->cart_item,
-                'prices' => $this->prices,
-            ]);
+            'order' => $this->order,
+            'user' => $this->user,
+            'cart_item' => $this->cart_item,
+            'prices' => $this->prices,
+        ]);
     }
 }

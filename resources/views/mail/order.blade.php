@@ -366,7 +366,7 @@
                                                         style="padding-top: 8px;">
                                                         <p class="o_sans o_text o_text-secondary"
                                                             style="font-family: Helvetica, Arial, sans-serif;margin-top: 0px;margin-bottom: 0px;font-size: 16px;line-height: 24px;color: #424651;">
-                                                            €{{ $prices->total_price_without_fee }}</p>
+                                                            ${{ $prices->total_price_without_fee }}</p>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -380,7 +380,7 @@
                                                         style="padding-top: 8px;">
                                                         <p class="o_sans o_text o_text-secondary"
                                                             style="font-family: Helvetica, Arial, sans-serif;margin-top: 0px;margin-bottom: 0px;font-size: 16px;line-height: 24px;color: #424651;">
-                                                            €{{ $prices->total_price - $prices->total_price_without_fee }}
+                                                            ${{ $prices->total_price - $prices->total_price_without_fee }}
                                                         </p>
                                                     </td>
                                                 </tr>
@@ -404,7 +404,7 @@
                                                         style="padding-top: 16px;">
                                                         <p class="o_sans o_text o_text-primary"
                                                             style="font-family: Helvetica, Arial, sans-serif;margin-top: 0px;margin-bottom: 0px;font-size: 16px;line-height: 24px;color: #126de5;">
-                                                            <strong>€{{ $prices->total_price }}</strong>
+                                                            <strong>${{ $prices->total_price }}</strong>
                                                         </p>
                                                     </td>
                                                 </tr>
@@ -446,12 +446,9 @@
                             <p class="o_mb-xs" style="margin-top: 0px;margin-bottom: 8px;"><strong>Shipping
                                     Information</strong></p>
                             <p class="o_mb-md" style="margin-top: 0px;margin-bottom: 24px;">
-                                {{ $user->address->full_name }}<br>
-                                {{ $user->address->address }}<br>
-                                {{ $user->address->city }}<br>
-                                {{ $user->address->zip }}</p>
-                            {{ $user->address->phone }}</p>
-
+                                {{ $user?->address?->address }}<br>
+                                {{ $user?->address?->city }}<br>
+                                {{ $user?->address?->zip }}</p>
                         </div>
                     </div>
                     <!--[if mso]></td></tr></table><![endif]-->
