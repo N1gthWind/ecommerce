@@ -4,9 +4,6 @@
         </td>
         <td><a href="ecommerce-order-detail.html" class="text-body fw-bold">{{ order.id }}</a>
         </td>
-        <td>
-
-        </td>
         <td>{{ order.created_at }}</td>
         <td>
 
