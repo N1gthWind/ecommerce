@@ -109,6 +109,10 @@ class WishListController extends Controller
      */
     public function destroy(Request $request, $id)
     {
+        // check if exist
+        if(!WishList::where('id', $id)->exists()) {
+            return redirect()->back()->with('error', 'Wishlist not found');
+        }
 
         if ($request->user()->cannot('delete', WishList::findOrFail($id))) {
             return Inertia::render('Errors/SomethingWrong');

@@ -107,6 +107,8 @@ const AddToCart = (id) => {
 
 const removeFromWishlist = (id) => {
     Inertia.delete(route('wishlist.destroy', { wishlist: id }));
+    // reload page
+    window.location.reload();
 }
 </script>
 
